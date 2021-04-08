@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 701174148}
   - component: {fileID: 701174149}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,6 +172,28 @@ MonoBehaviour:
   - {fileID: 2131951451738418045, guid: 3424a52c7bb341d49b3362d9bfbccb6b, type: 3}
   - {fileID: 5645303245632965781, guid: 103a48c8ea7119a4eab538fcfcd2a7a0, type: 3}
   - {fileID: 7786696198444517982, guid: 89c53ffc95244fb4da57af09154bbf6f, type: 3}
+  width: 10
+  height: 20
+  sprites:
+  - {fileID: 21300000, guid: e4acf9a6be26f614ca7d4cc3bf38ad6e, type: 3}
+  - {fileID: 21300000, guid: 75e4453934eeb8d43b16b815adfc8775, type: 3}
+  - {fileID: 21300000, guid: 5dd7435b4a87bfb4d9248ae52cda7f2e, type: 3}
+  - {fileID: 21300000, guid: a4e045a7bfc4431408483dbd9999aacc, type: 3}
+  - {fileID: 21300000, guid: 297cb087cf6f3cc4393910417b60fabc, type: 3}
+  - {fileID: 21300000, guid: 0a09023adacfcfc469d0cb62d5e08793, type: 3}
+  - {fileID: 21300000, guid: 1041d4c94b3768c4a862fbee91fe6c1f, type: 3}
+  - {fileID: 21300000, guid: 8bf505c2698c2954399fb9a39b8d0927, type: 3}
+  - {fileID: 21300000, guid: d26aa9731f5baa04c814e933be33bcbd, type: 3}
+  - {fileID: 21300000, guid: 32248b72d61958e4e883f5fdaaba68d3, type: 3}
+  - {fileID: 21300000, guid: a28c381a49f7b7b4aa79bc9f5d735053, type: 3}
+  - {fileID: 21300000, guid: 1d99d0213fc622b48bc075fa68a2ca5a, type: 3}
+  - {fileID: 21300000, guid: f937421711cfc1e4c9547dcea2114436, type: 3}
+  - {fileID: 21300000, guid: 8e354a542e5e62e4cb94df2943b5724d, type: 3}
+  operators:
+  - +
+  - '-'
+  - '*'
+  - /
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
