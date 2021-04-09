@@ -6,6 +6,7 @@ public class TetrisBlock : MonoBehaviour
 {
 	[Header("블록 데이터")]
 	public BlockData[] blockData; // 블록 데이터 정보 (블록마다 저장된 숫자, 연산자..)
+	public int chanceNum = 90; // 숫자가 나올 확률 (90이면 90%)
 
 	public Vector3 rotationPoint;
 	public float fallTime = 0.8f;
@@ -154,22 +155,21 @@ public class TetrisBlock : MonoBehaviour
 	*/
 	void SetBlockValue()
 	{
-		int chanceNum = 90;	// 숫자가 나올 확률 (90이면 90%)
 		int rnum = 0;
 		for (int i = 0; i < blockData.Length; i++)
 		{
 			rnum = Random.Range(0, 100);
-			if(rnum < chanceNum)	// chanceNum % 확률로 숫자만 나오도록 함
+			SpriteRenderer sr = blockData[i].go_blockValue.GetComponent<SpriteRenderer>();
+
+			if (rnum < chanceNum)	// chanceNum % 확률로 숫자만 나오도록 함
             {
 				rnum = Random.Range(0, 10);
-				SpriteRenderer sr = blockData[i].go_blockValue.GetComponent<SpriteRenderer>();
 				sr.sprite = gm.sprites[rnum];
 				blockData[i].blockValue = rnum.ToString();
 			}
             else
             {
 				rnum = Random.Range(10, 14);	// gm.sprites의 순서가 숫자 10개 다음 연산자이므로 10~13의 숫자만 나오게 함
-				SpriteRenderer sr = blockData[i].go_blockValue.GetComponent<SpriteRenderer>();
 				sr.sprite = gm.sprites[rnum];
 				blockData[i].blockValue = gm.operators[rnum - 10];	// rnum - 10을 하면 0~3까지 숫자이므로 operator 참조가 편리
 			}
