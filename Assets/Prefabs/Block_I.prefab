@@ -667,6 +667,7 @@ MonoBehaviour:
   - {fileID: 110770648}
   - {fileID: 110770647}
   - {fileID: 110770646}
+  chanceNum: 90
   rotationPoint: {x: 0.5, y: 0.5, z: 0}
   fallTime: 0.8
 --- !u!1 &6714785770360222531

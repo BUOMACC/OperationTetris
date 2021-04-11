@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Data;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -13,10 +14,12 @@ public class TetrisBlock : MonoBehaviour
 	private float previousTime;
 
 	GameManager gm; // GameManager 게임의 흐름을 관리
+	UIManager um;
 
 	void Awake()
 	{
 		gm = FindObjectOfType<GameManager>(); // Get GameManager
+		um = FindObjectOfType<UIManager>();
 	}
 
 	void Start()
@@ -70,8 +73,18 @@ public class TetrisBlock : MonoBehaviour
 	{
 		for(int i = gm.height-1; i >= 0; i--)
 		{
-			if(HasLine(i))
+			if (HasLine(i))
 			{
+				if (ValidExpression(i) == "NoError") // 식 완성 체크
+				{
+					long score = CalcExpression(i);
+					if (score >= 0)
+						um.SetScoreText("+" + score.ToString());
+					else
+						um.SetScoreText(score.ToString());
+				}
+				else
+					Debug.Log(ValidExpression(i));
 				DeleteLine(i);
 				RowDown(i);
 			}
@@ -86,6 +99,93 @@ public class TetrisBlock : MonoBehaviour
 				return false;
 		}
 		return true;
+	}
+
+	// 완성된 식인지 확인하는 함수 (i = y임)
+	// TODO: 이후에 string 말고 bool을 반환타입으로 변경할 것임, 테스트와 오류검출을 위해 string을 반환타입으로 해두었음
+	string ValidExpression(int i)
+	{
+		GameObject block;
+		BlockData data;
+
+		string frontChar = "";
+		int operatorCnt = 0;
+
+		for (int j = 0; j < gm.width; j++)
+		{
+			// 블록 정보를 받아옴
+			block = gm.grid[j, i].gameObject;
+			data = block.GetComponent<BlockData>();
+
+			// 1) 라인의 첫 번째에는 ×÷가 올 수 없고 끝부분에는 +-×÷가 올 수 없다. (×5+3-5+)
+			if (j == 0)
+			{
+				if (data.blockValue == "*" || data.blockValue == "/")
+					return "첫라인 Error";
+			}
+			// 2) 라인의 첫번째에 이미 +-연산자가 와있는 경우 두번째에는 어떤 연산자던 올 수 없다. (-+5...)
+			else if(j == 1 && (data.blockValue == "+" || data.blockValue == "-" || data.blockValue == "*" || data.blockValue == "/"))
+			{
+				if(frontChar == "+" || frontChar == "-")
+					return "0열에 +-가 와있으면 1열에는 연산자 불가";
+			}
+			else if (j == gm.width - 1) // 라인의 끝부분에는 +-×÷가 올 수 없다.
+			{
+				if (data.blockValue == "+" || data.blockValue == "-" || data.blockValue == "*" || data.blockValue == "/")
+					return "끝라인 Error";
+			}
+
+			// 3) 사칙연산 기호 이후에 바로 ×÷가 다시 올 수 없다. (3××5...)
+			if (frontChar == "*" || frontChar == "/" || frontChar == "+" || frontChar == "-")
+			{
+				if (data.blockValue == "*" || data.blockValue == "/") return "x/ 바로못옴"; // 앞에 이미 ×÷ 기호가 한번 온 경우 (flag = true를 의미)
+			}
+
+			// 4) 사칙연산이 두번 연속으로 사용된 경우 +- 기호를 다시 사용할 수 없다.
+			if (data.blockValue == "+" || data.blockValue == "-")
+			{
+				if (operatorCnt >= 2) return "사칙연산 이미 두번연속으로 왔음";
+			}
+
+			// 이 블록의 정보가 연산자인 경우 연산자 카운트 +1 (연속), 아닌경우 초기화
+			if (data.blockValue == "+" || data.blockValue == "-" || data.blockValue == "*" || data.blockValue == "/")
+				operatorCnt++;
+			else
+				operatorCnt = 0;
+			frontChar = data.blockValue;
+		}
+		return "NoError";
+	}
+
+	// 식을 쪼개 배열에 담아주는 함수
+	long CalcExpression(int i)
+	{
+		GameObject block;
+		BlockData data;
+
+		string expression = "";
+
+		// 블록에 저장된 값을 문자열로 가져오는 작업
+		for (int j = 0; j < gm.width; j++)
+		{
+			// 블록 정보를 받아옴
+			block = gm.grid[j, i].gameObject;
+			data = block.GetComponent<BlockData>();
+
+			expression += data.blockValue;
+		}
+
+		// 식 계산
+		DataTable dt = new DataTable();
+		var v = dt.Compute(expression, "");
+
+		if(v.ToString() == "Infinity") return 0; // 0으로 나눈 경우
+		long res = System.Convert.ToInt64(v);
+
+		// TODO: 이후에 지울것
+		Debug.Log(expression + "계산결과: " + res);
+
+		return res;
 	}
 
 	void DeleteLine(int i)
@@ -195,4 +295,47 @@ public class TetrisBlock : MonoBehaviour
 		}
 		return true;
 	}
+
+
+
+
+	/* 짜놓고 사용안하는 함수 (혹시몰라 내버려둠)
+	     식을 쪼개 배열에 담아주는 함수
+	string[] SplitExpression(int i)
+	{
+		GameObject block;
+		BlockData data;
+
+		string expression = "";
+		string[] nums = new string[10]; // 10개까지 저장 가능
+		int index = 0; // nums의 인덱스
+
+		// 블록에 저장된 값을 문자열로 가져오는 작업
+		for (int j = 0; j < gm.width; j++)
+		{
+			// 블록 정보를 받아옴
+			block = gm.grid[j, i].gameObject;
+			data = block.GetComponent<BlockData>();
+
+			expression += data.blockValue;
+		}
+
+		// 문자열로 저장된 식을 쪼개기
+		for (int s = 0; s < expression.Length; s++)
+		{
+			// 라인의 첫부분이 아니고 연산자를 만나면 연산자를 저장하고 다음 인덱스로 넘김
+			if (s != 0 &&
+				(expression[s] == '+' || expression[s] == '-' || expression[s] == '*' || expression[s] == '/'))
+			{
+				index = index + 1;
+				nums[index] = expression[s].ToString();
+				index = index + 1;
+				continue;
+			}
+			nums[index] += expression[s];
+		}
+
+		return nums;
+	}
+	*/
 }

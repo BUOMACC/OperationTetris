@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Data;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
 
 	// Sprite List (숫자, 연산자 리스트)
 	public Sprite[] sprites;
-	public string[] operators = { "+", "-", "×", "÷" };
+	public string[] operators = { "+", "-", "*", "/" };
 
 	void Awake()
 	{
