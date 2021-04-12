@@ -79,9 +79,9 @@ public class TetrisBlock : MonoBehaviour
 				{
 					long score = CalcExpression(i);
 					if (score >= 0)
-						um.SetScoreText("+" + score.ToString());
+						um.SetScoreText("+" + string.Format("{0:#,##0}", score));
 					else
-						um.SetScoreText(score.ToString());
+						um.SetScoreText(string.Format("{0:#,##0}", score));
 				}
 				else
 					Debug.Log(ValidExpression(i));
