@@ -5,6 +5,8 @@ using System.Data;
 
 public class GameManager : MonoBehaviour
 {
+	public long score = 0;
+
 	public GameObject[] blocks;
 
 	// Map Size
@@ -18,10 +20,14 @@ public class GameManager : MonoBehaviour
 	public Sprite[] sprites;
 	public string[] operators = { "+", "-", "*", "/" };
 
+	// 필요 Component
+	public UIManager um;
+
 	void Awake()
 	{
 		// Grid Size 정의
 		grid = new Transform[width, height];
+		um = FindObjectOfType<UIManager>();
 	}
 
 	void Start()
@@ -32,5 +38,11 @@ public class GameManager : MonoBehaviour
 	public void NewTetrisBlock()
 	{
 		Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+	}
+
+	public void AddScore(long amount)
+	{
+		score += amount;
+		um.SetScoreText(string.Format("{0:#,##0}", amount), string.Format("{0:#,##0}", score));
 	}
 }

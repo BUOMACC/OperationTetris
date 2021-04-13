@@ -6,9 +6,13 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
 	public Text scoreText;
+	public Text scoreAddText;
 
-	public void SetScoreText(string s)
+
+	public void SetScoreText(string amount, string currentScore)
 	{
-		scoreText.text = s;
+		// 점수 증가량, 현재 점수
+		scoreAddText.text = amount;
+		scoreText.text = currentScore;
 	}
 }

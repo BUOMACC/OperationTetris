@@ -7,7 +7,7 @@ public class TetrisBlock : MonoBehaviour
 {
 	[Header("블록 데이터")]
 	public BlockData[] blockData; // 블록 데이터 정보 (블록마다 저장된 숫자, 연산자..)
-	public int chanceNum = 90; // 숫자가 나올 확률 (90이면 90%)
+	//public int chanceNum = 90; // 숫자가 나올 확률 (90이면 90%)
 
 	public Vector3 rotationPoint;
 	public float fallTime = 0.8f;
@@ -78,10 +78,7 @@ public class TetrisBlock : MonoBehaviour
 				if (ValidExpression(i) == "NoError") // 식 완성 체크
 				{
 					long score = CalcExpression(i);
-					if (score >= 0)
-						um.SetScoreText("+" + string.Format("{0:#,##0}", score));
-					else
-						um.SetScoreText(string.Format("{0:#,##0}", score));
+					gm.AddScore(score);
 				}
 				else
 					Debug.Log(ValidExpression(i));
@@ -110,6 +107,7 @@ public class TetrisBlock : MonoBehaviour
 
 		string frontChar = "";
 		int operatorCnt = 0;
+		int numCnt = 0;
 
 		for (int j = 0; j < gm.width; j++)
 		{
@@ -151,9 +149,18 @@ public class TetrisBlock : MonoBehaviour
 			if (data.blockValue == "+" || data.blockValue == "-" || data.blockValue == "*" || data.blockValue == "/")
 				operatorCnt++;
 			else
+			{
 				operatorCnt = 0;
+				numCnt++;
+			}
 			frontChar = data.blockValue;
 		}
+		// 5) 숫자로만 완성됐을 경우 점수를 적게줌
+		if(numCnt >= gm.width)
+		{
+			return "숫자로만 완성함";
+		}
+
 		return "NoError";
 	}
 
@@ -256,12 +263,15 @@ public class TetrisBlock : MonoBehaviour
 	void SetBlockValue()
 	{
 		int rnum = 0;
+		SpriteRenderer sr;
+
 		for (int i = 0; i < blockData.Length; i++)
 		{
 			rnum = Random.Range(0, 100);
-			SpriteRenderer sr = blockData[i].go_blockValue.GetComponent<SpriteRenderer>();
+			sr = blockData[i].go_blockValue.GetComponent<SpriteRenderer>();
+			Debug.Log(blockData[i].chanceNum);
 
-			if (rnum < chanceNum)	// chanceNum % 확률로 숫자만 나오도록 함
+			if (rnum < blockData[i].chanceNum)	// chanceNum % 확률로 숫자만 나오도록 함
             {
 				rnum = Random.Range(0, 10);
 				sr.sprite = gm.sprites[rnum];

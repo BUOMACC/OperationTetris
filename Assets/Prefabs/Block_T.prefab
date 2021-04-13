@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 8551914165057149456}
   blockValue: 
+  chanceNum: 100
 --- !u!1 &2131951451600526482
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 2832997416751809520}
   blockValue: 
+  chanceNum: 100
 --- !u!1 &2131951451738418045
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +248,6 @@ MonoBehaviour:
   - {fileID: 317929873778796882}
   - {fileID: 1814373447397124675}
   - {fileID: 6790309766176325421}
-  chanceNum: 90
   rotationPoint: {x: 0, y: 0, z: 0}
   fallTime: 0.8
 --- !u!1 &2131951451952874614
@@ -346,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 5386101971505228747}
   blockValue: 
+  chanceNum: 0
 --- !u!1 &2131951452570241459
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 7450632826677138826}
   blockValue: 
+  chanceNum: 100
 --- !u!1 &2832997416751809520
 GameObject:
   m_ObjectHideFlags: 0

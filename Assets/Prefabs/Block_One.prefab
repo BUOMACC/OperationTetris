@@ -224,6 +224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockData:
   - {fileID: 870887916175285218}
-  chanceNum: 90
+  chanceNum: 0
   rotationPoint: {x: 0, y: 0, z: 0}
   fallTime: 0.8
