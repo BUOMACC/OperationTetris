@@ -269,7 +269,6 @@ public class TetrisBlock : MonoBehaviour
 		{
 			rnum = Random.Range(0, 100);
 			sr = blockData[i].go_blockValue.GetComponent<SpriteRenderer>();
-			Debug.Log(blockData[i].chanceNum);
 
 			if (rnum < blockData[i].chanceNum)	// chanceNum % 확률로 숫자만 나오도록 함
             {
