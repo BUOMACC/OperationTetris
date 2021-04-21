@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7816810924257416814}
   - component: {fileID: 2138451226367606620}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7333720386870645101}
   - component: {fileID: 6094428432523576204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5645303245345485438}
   - component: {fileID: 5645303245345485439}
   - component: {fileID: 5894519206963276360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,8 +234,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 35527204203705341a155a1cd645008a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ef1d9735665d7849afdc68d3ce045b2, type: 3}
+  m_Color: {r: 1, g: 0.3443396, b: 0.75316316, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 5645303245594334359}
   - component: {fileID: 5645303245594334352}
   - component: {fileID: 4750862310440486726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,8 +332,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 35527204203705341a155a1cd645008a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ef1d9735665d7849afdc68d3ce045b2, type: 3}
+  m_Color: {r: 1, g: 0.3443396, b: 0.75316316, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5645303245632965783}
   - component: {fileID: 5645303245632965782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block_Z
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 5645303246138838169}
   - component: {fileID: 5645303246138838170}
   - component: {fileID: 1316374722750021654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,8 +484,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 35527204203705341a155a1cd645008a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ef1d9735665d7849afdc68d3ce045b2, type: 3}
+  m_Color: {r: 1, g: 0.3443396, b: 0.75316316, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 5645303246382429745}
   - component: {fileID: 5645303246382429746}
   - component: {fileID: 5302143769153192641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,8 +582,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 35527204203705341a155a1cd645008a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ef1d9735665d7849afdc68d3ce045b2, type: 3}
+  m_Color: {r: 1, g: 0.3443396, b: 0.75316316, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -618,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3189053445357603780}
   - component: {fileID: 5885966235015270423}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7878918229304321902}
   - component: {fileID: 7321036032645343952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

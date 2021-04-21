@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306439096215448719}
   - component: {fileID: 7079932267463700572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4815934169755584671}
   - component: {fileID: 4815934169755584736}
   - component: {fileID: 870887916175285218}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 35527204203705341a155a1cd645008a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ba6eacafb5789b4b93c7a75aaeca5e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 1446563773964202596}
   blockValue: 
+  chanceNum: 0
 --- !u!1 &4815934170804119913
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815934170804119915}
   - component: {fileID: 4815934170804119914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block_One
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,6 +225,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockData:
   - {fileID: 870887916175285218}
-  chanceNum: 0
   rotationPoint: {x: 0, y: 0, z: 0}
   fallTime: 0.8
