@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 7196781308547405163}
   blockValue: 
-  chanceNum: 100
+  chanceNum: 0
 --- !u!1 &8371995105516835547
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8371995105516835547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5517498359819116028}
@@ -546,7 +546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8371995106415240159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8293039659294782727}
@@ -644,7 +644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8371995106487953574}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5087789470966337722}
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_blockValue: {fileID: 5948452110018225974}
   blockValue: 
-  chanceNum: 0
+  chanceNum: 100
 --- !u!1 &8371995107145590280
 GameObject:
   m_ObjectHideFlags: 0

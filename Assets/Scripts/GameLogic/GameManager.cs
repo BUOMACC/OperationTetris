@@ -58,17 +58,22 @@ public class GameManager : MonoBehaviour
 	//테트리스 블록 위치 설정
 	public void setBlockPosition()
     {
-		blockList[0].transform.position = new Vector3(3, 19, 0);
+		blockList[0].transform.position = new Vector3(3, 18, 0);
 		blockList[0].transform.localScale = new Vector3(1, 1, 1);
 		blockList[0].GetComponent<TetrisBlock>().enabled = true;
 
-		blockList[1].transform.position = new Vector3(10, 16, 0);
-		blockList[2].transform.position = new Vector3(10, 13.5f, 0);
-		blockList[3].transform.position = new Vector3(10, 11, 0);
-
-		for (int i = 1; i < 4; i++) // 1, 2, 3번 scale 조정
+		for(int i=1; i<4; i++) // 블록 모양 구분 이름 말고 다른 방법이 좋을거같음
 		{
-			blockList[i].transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+			if (blockList[i].name.Equals("Block_C(Clone)") || blockList[i].name.Equals("Block_I(Clone)") || blockList[i].name.Equals("Block_Two(Clone)")) 
+				
+			{
+				blockList[i].transform.position = new Vector3(10.05f, 16.3f - (i - 1) * 3f, 0); // 모양에 따라 위치 변경
+			}
+			else
+			{
+				blockList[i].transform.position = new Vector3(9.7f, 16.3f - (i - 1) * 3f, 0);
+			}
+			blockList[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); // 미리보기는 크기 줄임
 		}
 	}
 
