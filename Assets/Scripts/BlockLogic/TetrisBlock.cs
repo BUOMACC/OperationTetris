@@ -20,12 +20,13 @@ public class TetrisBlock : MonoBehaviour
 	{
 		gm = FindObjectOfType<GameManager>(); // Get GameManager
 		um = FindObjectOfType<UIManager>();
+		SetBlockValue(); // 블록 생성시 블록마다 값을 줌
+		this.enabled = false; // 맵으로 이동될 때까지 스크립트를 비활성화함
 	}
 
 	void Start()
 	{
-		SetBlockValue(); // 블록 생성시 블록마다 값을 줌
-		this.enabled = false; // 맵으로 이동될 때까지 스크립트를 비활성화함
+		
 	}
 
 	void Update()

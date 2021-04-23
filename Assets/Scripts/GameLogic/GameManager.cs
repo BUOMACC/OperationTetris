@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
 	// 필요 Component
 	public UIManager um;
 
+	// 블록 배열
+	private GameObject[] blockList = new GameObject[4];
+
 	void Awake()
 	{
 		// Grid Size 정의
@@ -31,14 +34,42 @@ public class GameManager : MonoBehaviour
 	}
 
 	void Start()
-    {
+	{
+		for(int i=1; i<4; i++) // 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
+        {
+			blockList[i] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+		}
+
 		NewTetrisBlock();
 	}
 
 	// 테트리스 블록 스폰
 	public void NewTetrisBlock()
 	{
-		Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+		for(int i=0; i<3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
+        {
+			blockList[i] = blockList[i + 1];
+        }
+		blockList[3] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity); // 새로운 블록 하나 생성 (3번)
+
+		setBlockPosition();
+	}
+
+	//테트리스 블록 위치 설정
+	public void setBlockPosition()
+    {
+		blockList[0].transform.position = new Vector3(3, 19, 0);
+		blockList[0].transform.localScale = new Vector3(1, 1, 1);
+		blockList[0].GetComponent<TetrisBlock>().enabled = true;
+
+		blockList[1].transform.position = new Vector3(10, 16, 0);
+		blockList[2].transform.position = new Vector3(10, 13.5f, 0);
+		blockList[3].transform.position = new Vector3(10, 11, 0);
+
+		for (int i = 1; i < 4; i++) // 1, 2, 3번 scale 조정
+		{
+			blockList[i].transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+		}
 	}
 
 	// 점수 추가
