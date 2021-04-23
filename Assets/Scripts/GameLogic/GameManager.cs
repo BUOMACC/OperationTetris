@@ -58,11 +58,12 @@ public class GameManager : MonoBehaviour
 	//테트리스 블록 위치 설정
 	public void setBlockPosition()
     {
+		blockList[0].GetComponent<TetrisBlock>().setPreviousTime(Time.time); // 현재 시간을 넣어줌으로써 바로 떨어지는 것을 방지
 		blockList[0].transform.position = new Vector3(3, 18, 0);
 		blockList[0].transform.localScale = new Vector3(1, 1, 1);
 		blockList[0].GetComponent<TetrisBlock>().enabled = true;
 
-		for(int i=1; i<4; i++) // 블록 모양 구분 이름 말고 다른 방법이 좋을거같음
+		for (int i=1; i<4; i++) // 블록 모양 구분 이름 말고 다른 방법이 좋을거같음
 		{
 			if (blockList[i].name.Equals("Block_C(Clone)") || blockList[i].name.Equals("Block_I(Clone)") || blockList[i].name.Equals("Block_Two(Clone)")) 
 				
