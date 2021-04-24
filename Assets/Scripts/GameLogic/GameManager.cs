@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 	public string[] operators = { "+", "-", "*", "/" };
 
 	// 필요 Component
-	public UIManager um;
+	public GameUIManager um;
 
 	// 블록 배열
 	private GameObject[] blockList = new GameObject[4];
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 	{
 		// Grid Size 정의
 		grid = new Transform[width, height];
-		um = FindObjectOfType<UIManager>();
+		um = FindObjectOfType<GameUIManager>();
 	}
 
 	void Start()
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
 		for (int i=1; i<4; i++) // 블록 모양 구분 이름 말고 다른 방법이 좋을거같음
 		{
-			if (blockList[i].name.Equals("Block_C(Clone)") || blockList[i].name.Equals("Block_I(Clone)") || blockList[i].name.Equals("Block_Two(Clone)")) 
+			if (blockList[i].tag.Equals("Block_B")) 
 				
 			{
 				blockList[i].transform.position = new Vector3(10.05f, 16.3f - (i - 1) * 3f, 0); // 모양에 따라 위치 변경
