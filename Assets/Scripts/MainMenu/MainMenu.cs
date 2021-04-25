@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
+		// 게임 실행시 초기세팅
 		Screen.SetResolution(720, 1280, true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 }
