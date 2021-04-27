@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data;
 
+public enum Difficulty
+{
+	Easy,
+	Hard
+}
+
 public class GameManager : MonoBehaviour
 {
 	public long score = 0;
@@ -10,18 +16,23 @@ public class GameManager : MonoBehaviour
 	public GameObject[] blocks;
 
 	// Map Size
-	public int width = 10;
+	[Header("Map Size")]
+	public int width = 9;
 	public int height = 20;
 
 	// Grid Size
 	public Transform[,] grid;
 
+	[Header("Mode")]
+	public Difficulty difficulty = Difficulty.Easy;
+
 	// Sprite List (숫자, 연산자 리스트)
+	[Header("Number, Operatior List")]
 	public Sprite[] sprites;
 	public string[] operators = { "+", "-", "*", "/" };
 
 	// 필요 Component
-	public GameUIManager um;
+	private GameUIManager um;
 
 	// 블록 배열
 	private GameObject[] blockList = new GameObject[4];
@@ -35,12 +46,17 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		for(int i=1; i<4; i++) // 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
-        {
+		InitNextBlock();
+		NewTetrisBlock();
+	}
+
+	// 처음 실행시 다음 블록 3개를 스폰
+	public void InitNextBlock()
+	{
+		for (int i = 1; i < 4; i++) // 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
+		{
 			blockList[i] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
 		}
-
-		NewTetrisBlock();
 	}
 
 	// 테트리스 블록 스폰
@@ -98,11 +114,20 @@ public class GameManager : MonoBehaviour
 				{
 					long score = CalcExpression(y);
 					AddScore(score);
+					if(difficulty == Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
+					{
+						DeleteLine(y);
+						RowDown(y);
+					}
 				}
 				else
 					Debug.Log(ValidExpression(y));
-				DeleteLine(y);
-				RowDown(y);
+
+				if (difficulty == Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
+				{
+					DeleteLine(y);
+					RowDown(y);
+				}
 			}
 		}
 	}
