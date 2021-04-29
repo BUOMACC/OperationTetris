@@ -20,6 +20,7 @@ public class TetrisBlock : MonoBehaviour
 	{
 		gm = FindObjectOfType<GameManager>(); // Get GameManager
 		um = FindObjectOfType<GameUIManager>();
+
 		SetBlockValue(); // 블록 생성시 블록마다 값을 줌
 		this.enabled = false; // 맵으로 이동될 때까지 스크립트를 비활성화함
 	}
@@ -57,7 +58,8 @@ public class TetrisBlock : MonoBehaviour
 			{
 				transform.position -= new Vector3(0, -1, 0);
 				AddToGrid();
-				gm.CheckForLines();
+				StartCoroutine(gm.CheckForLines());
+				//gm.CheckForLines();
 
 				this.enabled = false;
 				gm.NewTetrisBlock();
@@ -116,6 +118,7 @@ public class TetrisBlock : MonoBehaviour
 	void SetBlockValue()
 	{
 		int rnum = 0;
+		string spriteName = "";
 		SpriteRenderer sr;
 
 		for (int i = 0; i < blockData.Length; i++)
@@ -126,14 +129,16 @@ public class TetrisBlock : MonoBehaviour
 			if (rnum < blockData[i].chanceNum)	// chanceNum % 확률로 숫자만 나오도록 함
             {
 				rnum = Random.Range(1, 10);
-				sr.sprite = gm.sprites[rnum - 1];
+				spriteName = gm.spritesName[rnum];
+				sr.sprite = gm.atlas.GetSprite(spriteName);
 				blockData[i].blockValue = rnum.ToString();
 			}
             else
             {
-				rnum = Random.Range(9, 13);	// gm.sprites의 순서가 숫자 9개 다음 연산자이므로 9~12의 숫자만 나오게 함
-				sr.sprite = gm.sprites[rnum];
-				blockData[i].blockValue = gm.operators[rnum - 9];	// rnum - 10을 하면 0~3까지 숫자이므로 operator 참조가 편리
+				rnum = Random.Range(10, 14); // gm.sprites의 순서가 숫자 10개 다음 연산자이므로 9~12의 숫자만 나오게 함
+				spriteName = gm.spritesName[rnum];
+				sr.sprite = gm.atlas.GetSprite(spriteName);
+				blockData[i].blockValue = gm.operators[rnum - 10];	// rnum - 10을 하면 0~3까지 숫자이므로 operator 참조가 편리
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using System.Data;
 
 public enum Difficulty
@@ -23,12 +24,14 @@ public class GameManager : MonoBehaviour
 	// Grid Size
 	public Transform[,] grid;
 
-	[Header("Mode")]
-	public Difficulty difficulty = Difficulty.Easy;
+	[Header("GameSetting")]
+	public Difficulty difficulty = Difficulty.Easy; // 난이도
+	public float destroyTime = 1.0f; // 블록 파괴시간 (1 = 1초)
 
 	// Sprite List (숫자, 연산자 리스트)
 	[Header("Number, Operatior List")]
-	public Sprite[] sprites;
+	public SpriteAtlas atlas;
+	public string[] spritesName;
 	public string[] operators = { "+", "-", "*", "/" };
 
 	// 필요 Component
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
 
 // GameGrid Logic
 	// 라인 체크
-	public void CheckForLines()
+	public IEnumerator CheckForLines()
 	{
 		for (int y = height - 1; y >= 0; y--)
 		{
@@ -117,15 +120,15 @@ public class GameManager : MonoBehaviour
 					if(difficulty == Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
 					{
 						DeleteLine(y);
+						yield return new WaitForSeconds(destroyTime);
 						RowDown(y);
 					}
 				}
-				else
-					Debug.Log(ValidExpression(y));
 
 				if (difficulty == Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
 				{
 					DeleteLine(y);
+					yield return new WaitForSeconds(destroyTime);
 					RowDown(y);
 				}
 			}
@@ -147,7 +150,9 @@ public class GameManager : MonoBehaviour
 	{
 		for (int x = 0; x < width; x++)
 		{
-			Destroy(grid[x, y].gameObject);
+			//Destroy(grid[x, y].gameObject);
+
+			grid[x, y].GetComponent<BlockData>().FadeOutAnimation(destroyTime);
 			grid[x, y] = null;
 		}
 	}

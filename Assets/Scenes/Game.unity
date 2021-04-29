@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -51,7 +51,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -330,26 +330,29 @@ MonoBehaviour:
   - {fileID: 4815934170804119913, guid: 5abebb6d5b0b5b247b8cdc1133cd946c, type: 3}
   width: 9
   height: 20
-  sprites:
-  - {fileID: 21300000, guid: 75e4453934eeb8d43b16b815adfc8775, type: 3}
-  - {fileID: 21300000, guid: 5dd7435b4a87bfb4d9248ae52cda7f2e, type: 3}
-  - {fileID: 21300000, guid: a4e045a7bfc4431408483dbd9999aacc, type: 3}
-  - {fileID: 21300000, guid: 297cb087cf6f3cc4393910417b60fabc, type: 3}
-  - {fileID: 21300000, guid: 0a09023adacfcfc469d0cb62d5e08793, type: 3}
-  - {fileID: 21300000, guid: 1041d4c94b3768c4a862fbee91fe6c1f, type: 3}
-  - {fileID: 21300000, guid: 8bf505c2698c2954399fb9a39b8d0927, type: 3}
-  - {fileID: 21300000, guid: d26aa9731f5baa04c814e933be33bcbd, type: 3}
-  - {fileID: 21300000, guid: 32248b72d61958e4e883f5fdaaba68d3, type: 3}
-  - {fileID: 21300000, guid: 65b6f4ed05d6af849b452ef2f5b3d120, type: 3}
-  - {fileID: 21300000, guid: ab83dbf69b421f34fb26bc8af5497052, type: 3}
-  - {fileID: 21300000, guid: 648bba47a368da84387236644621a062, type: 3}
-  - {fileID: 21300000, guid: 0ffc27e6a91751444b39221a99ee0a11, type: 3}
+  difficulty: 0
+  destroyTime: 0.2
+  atlas: {fileID: 4343727234628468602, guid: b324ef6ed95c99a459d120d043fbd389, type: 2}
+  spritesName:
+  - Image_0
+  - Image_1
+  - Image_2
+  - Image_3
+  - Image_4
+  - Image_5
+  - Image_6
+  - Image_7
+  - Image_8
+  - Image_9
+  - Image_add
+  - Image_sub
+  - Image_mul
+  - Image_div
   operators:
   - +
   - '-'
   - '*'
   - /
-  um: {fileID: 0}
 --- !u!1 &760791980
 GameObject:
   m_ObjectHideFlags: 0
