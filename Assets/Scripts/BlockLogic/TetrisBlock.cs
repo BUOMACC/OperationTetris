@@ -68,7 +68,7 @@ public class TetrisBlock : MonoBehaviour
 		}
     }
 
-	public void setPreviousTime(float n) // 블록 생성시 바로 떨어지는 문제를 해결하기 위함
+	public void SetPreviousTime(float n) // 블록 생성시 바로 떨어지는 문제를 해결하기 위함
     {
 		previousTime = n;
     }

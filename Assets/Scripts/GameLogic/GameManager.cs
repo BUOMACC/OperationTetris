@@ -76,13 +76,13 @@ public class GameManager : MonoBehaviour
         }
 		blockList[3] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity); // 새로운 블록 하나 생성 (3번)
 
-		setBlockPosition();
+		SetBlockPosition();
 	}
 
 	//테트리스 블록 위치 설정
-	public void setBlockPosition()
+	public void SetBlockPosition()
     {
-		blockList[0].GetComponent<TetrisBlock>().setPreviousTime(Time.time); // 현재 시간을 넣어줌으로써 바로 떨어지는 것을 방지
+		blockList[0].GetComponent<TetrisBlock>().SetPreviousTime(Time.time); // 현재 시간을 넣어줌으로써 바로 떨어지는 것을 방지
 		blockList[0].transform.position = new Vector3(3, 18, 0);
 		blockList[0].transform.localScale = new Vector3(1, 1, 1);
 		blockList[0].GetComponent<TetrisBlock>().enabled = true;
