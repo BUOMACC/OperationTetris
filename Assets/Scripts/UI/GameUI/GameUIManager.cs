@@ -11,6 +11,7 @@ public class GameUIManager : MonoBehaviour
 
 	// Gravity Gage
 	public Image gravImg;
+	public float gravGageSpd = 3.0f;
 
 
 	public void SetScoreText(string amount, string currentScore)
@@ -20,13 +21,18 @@ public class GameUIManager : MonoBehaviour
 		scoreText.text = currentScore;
 	}
 
-	public void AddGravityGage(int amount)
+	public void AddGravityGage(float amount)
 	{
-
+		StartCoroutine(AddGravityGageCoroutine(gravImg.fillAmount+amount));
 	}
 
-	IEnumerator AddGravityGageCoroutine()
+	IEnumerator AddGravityGageCoroutine(float end)
 	{
-		yield return null;
+		while(end-gravImg.fillAmount > 0.01f)
+		{
+			gravImg.fillAmount = Mathf.Lerp(gravImg.fillAmount, end, gravGageSpd * Time.deltaTime);
+			yield return null;
+		}
+		gravImg.fillAmount = end;
 	}
 }
