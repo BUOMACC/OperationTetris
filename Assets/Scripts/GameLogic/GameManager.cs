@@ -72,10 +72,26 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public bool CheckGameOver()
+    {
+		if (grid[4, 19] != null) // 블록이 스폰되는 위치에 데이터가 저장되어 있으면
+		{
+			GameOver();
+			return true;
+		}
+		return false;
+    }
+
+	public void GameOver()
+    {
+		Debug.Log("Game Over");
+    }
+
 	// 테트리스 블록 스폰
 	public void NewTetrisBlock()
 	{
-		for(int i=0; i<3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
+		if (CheckGameOver()) return;
+		for (int i=0; i<3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
         {
 			blockList[i] = blockList[i + 1];
         }
