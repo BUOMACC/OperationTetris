@@ -38,8 +38,8 @@ public class GameManager : MonoBehaviour
 	private GameObject[] blockList = new GameObject[4];
 
 	// 블록 교체(저장)
-	private GameObject savedBlock = new GameObject();
-	private GameObject savedBlocktemp = new GameObject();
+	private GameObject savedBlock;
+	private GameObject savedBlocktemp;
 	private bool blockChanged = false;
 
 	void Awake()
@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviour
 	{
 		if (blockChanged == false)
 		{
+			blockList[0].GetComponent<TetrisBlock>().SetPreviousTime(Time.time); // AddToGrid 함수가 호출되지 않도록 조건을 일부러 틀리게 맞춰줌
+			blockList[0].GetComponent<TetrisBlock>().enabled = false;
 			if (savedBlock == null) // 처음 블록 저장을 했을 때
 			{
 				savedBlock = blockList[0];
@@ -130,10 +132,10 @@ public class GameManager : MonoBehaviour
 				SetBlockPosition();
 			}
 
-			// 저장한 블록 위치 설정
+			// 저장한 블록 위치 설정, 회전 초기화
 			savedBlock.transform.position = new Vector3(10.05f, 5.3f, 0);
 			savedBlock.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
-			savedBlock.GetComponent<TetrisBlock>().enabled = false;
+			savedBlock.GetComponent<TetrisBlock>().ResetBlockRatation();
 
 			blockChanged = true;
 		}

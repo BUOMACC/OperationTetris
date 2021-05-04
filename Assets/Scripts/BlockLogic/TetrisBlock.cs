@@ -93,6 +93,19 @@ public class TetrisBlock : MonoBehaviour
 		}
 	}
 
+	public void ResetBlockRatation()
+	{
+		// 블록 자체 회전
+		transform.rotation = Quaternion.identity;
+		// 회전시 값 부분은 월드포지션 기준 (0, 0, 0) 회전값을 로컬 포지션에 적용
+		// 블록 자체가 회전되어도 표시된 숫자나 연산자는 똑바로 있어야 하기 때문
+		for (int i = 0; i < blockData.Length; i++)
+		{
+			GameObject block = blockData[i].go_blockValue;
+			block.transform.rotation = Quaternion.identity;
+		}
+	}
+
 	void AddToGrid()
 	{
 		foreach (Transform children in transform)
