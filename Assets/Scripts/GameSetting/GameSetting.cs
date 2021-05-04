@@ -26,7 +26,7 @@ public class GameSetting : MonoBehaviour
 	void Awake()
 	{
 		#region Singleton
-		if(instance != null)
+		if(instance == null)
 		{
 			instance = this;
 			DontDestroyOnLoad(this);
