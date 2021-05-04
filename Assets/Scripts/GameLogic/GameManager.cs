@@ -4,14 +4,10 @@ using UnityEngine;
 using UnityEngine.U2D;
 using System.Data;
 
-public enum Difficulty
-{
-	Easy,
-	Hard
-}
 
 public class GameManager : MonoBehaviour
 {
+
 	public long score = 0;
 
 	public GameObject[] blocks;
@@ -25,11 +21,12 @@ public class GameManager : MonoBehaviour
 	public Transform[,] grid;
 
 	[Header("GameSetting")]
-	public Difficulty difficulty = Difficulty.Easy; // 난이도
-	public float destroyTime = 1.0f; // 블록 파괴시간 (1 = 1초)
+	public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
+	public GameSetting.Mode mode = GameSetting.Mode.Normal;
+	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
 
 	// Sprite List (숫자, 연산자 리스트)
-	[Header("Number, Operatior List")]
+	[Header("Number, Operator List")]
 	public SpriteAtlas atlas;
 	public string[] spritesName;
 	public string[] operators = { "+", "-", "*", "/" };
@@ -49,8 +46,16 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
+		InitGameSetting();
 		InitNextBlock();
 		NewTetrisBlock();
+	}
+
+	// 게임 시작시 정보를 받아 설정함
+	private void InitGameSetting()
+	{
+		difficulty = GameSetting.instance.difficulty; // 난이도 설정
+		mode = GameSetting.instance.mode; // 모드 설정
 	}
 
 	// 처음 실행시 다음 블록 3개를 스폰
@@ -117,7 +122,7 @@ public class GameManager : MonoBehaviour
 				{
 					long score = CalcExpression(y);
 					AddScore(score);
-					if(difficulty == Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
+					if(difficulty == GameSetting.Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
 					{
 						DeleteLine(y);
 						yield return new WaitForSeconds(destroyTime);
@@ -125,7 +130,7 @@ public class GameManager : MonoBehaviour
 					}
 				}
 
-				if (difficulty == Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
+				if (difficulty == GameSetting.Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
 				{
 					DeleteLine(y);
 					yield return new WaitForSeconds(destroyTime);
