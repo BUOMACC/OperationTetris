@@ -10,7 +10,8 @@ public class GameUIManager : MonoBehaviour
 	public Text scoreAddText;
 
 	// Gravity Gage
-	public Image gravImg;
+	public Image gravGageImg;
+	public GameObject gravIcon;
 	public float gravGageSpd = 3.0f;
 
 
@@ -21,18 +22,18 @@ public class GameUIManager : MonoBehaviour
 		scoreText.text = currentScore;
 	}
 
-	public void AddGravityGage(float amount)
+	public void SetGravityGage(float gage)
 	{
-		StartCoroutine(AddGravityGageCoroutine(gravImg.fillAmount+amount));
+		StartCoroutine(SetGravityGageCoroutine(gage));
 	}
 
-	IEnumerator AddGravityGageCoroutine(float end)
+	IEnumerator SetGravityGageCoroutine(float gage)
 	{
-		while(end-gravImg.fillAmount > 0.01f)
+		while(Mathf.Abs(gage - gravGageImg.fillAmount) > 0.01f)
 		{
-			gravImg.fillAmount = Mathf.Lerp(gravImg.fillAmount, end, gravGageSpd * Time.deltaTime);
+			gravGageImg.fillAmount = Mathf.Lerp(gravGageImg.fillAmount, gage, gravGageSpd * Time.deltaTime);
 			yield return null;
 		}
-		gravImg.fillAmount = end;
+		gravGageImg.fillAmount = gage;
 	}
 }

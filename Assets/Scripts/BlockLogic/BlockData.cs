@@ -43,4 +43,46 @@ public class BlockData : MonoBehaviour
 
 		this.gameObject.SetActive(false);
 	}
+
+// Events
+	public void OnUseGravity(float gravityScale)
+	{
+		Vector3 pos = transform.position;
+
+		int targetX = Mathf.RoundToInt(pos.x);
+		int targetY = Mathf.RoundToInt(pos.y);
+
+		// 밑 칸이 비어있는 동안 반복
+		GameManager.grid[targetX, targetY] = null;
+
+		// 목표 Y값 찾기
+		while (targetY != 0 && GameManager.grid[targetX, targetY - 1] == null)
+		{
+			targetY -= 1;
+		}
+		GameManager.grid[targetX, targetY] = transform;
+		
+		// 블록 움직임 애니메이션 실행
+		StartCoroutine(BlockMoveAnimationCoroutine(targetY, gravityScale));
+	}
+
+	IEnumerator BlockMoveAnimationCoroutine(int targetY, float gravityScale)
+	{
+		// 중력 스케일
+		float gravScale = 0;
+
+		// 목표 포지션
+		Vector3 targetPos = new Vector3(transform.position.x, targetY, transform.position.z);
+
+		// 목표 포지션과 0.05 차이날때까지 반복
+		while(Vector3.Distance(transform.position, targetPos) > 0.05f)
+		{
+			gravScale += gravityScale * Time.deltaTime;
+			float yPos = (transform.position.y - gravScale) < 0 ? 0 : transform.position.y - gravScale;
+
+			transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
+			yield return null;
+		}
+		transform.position = targetPos;
+	}
 }

@@ -179,6 +179,8 @@ MonoBehaviour:
   go_blockValue: {fileID: 1446563773964202596}
   blockValue: 
   chanceNum: 0
+  blockRenderer: {fileID: 0}
+  markRenderer: {fileID: 0}
 --- !u!1 &4815934170804119913
 GameObject:
   m_ObjectHideFlags: 0

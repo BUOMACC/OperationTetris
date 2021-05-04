@@ -7,7 +7,6 @@ using System.Data;
 
 public class GameManager : MonoBehaviour
 {
-
 	public long score = 0;
 	public float gage = 0.0f;
 
@@ -19,12 +18,15 @@ public class GameManager : MonoBehaviour
 	public int height = 20;
 
 	// Grid Size
-	public Transform[,] grid;
+	public static Transform[,] grid;
 
 	[Header("GameSetting")]
 	public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
 	public GameSetting.Mode mode = GameSetting.Mode.Normal;
+	public float currentFallTime = 0.8f;
+	public float fallTime = 0.8f;
 	public float addGravityGage = 0.025f;
+	public float gravityScale = 0.08f;
 	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
 
 	// Sprite List (숫자, 연산자 리스트)
@@ -56,6 +58,40 @@ public class GameManager : MonoBehaviour
 		InitGameSetting();
 		InitNextBlock();
 		NewTetrisBlock();
+	}
+
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.E))
+		{
+			if(gage >= 1.0f)
+			{
+				gage = 0.0f;
+				um.SetGravityGage(0.0f);
+				um.gravIcon.SetActive(false);
+				StartCoroutine(BlockGravityCoroutine());
+			}
+		}
+	}
+
+	// 블록 중력
+	IEnumerator BlockGravityCoroutine()
+	{
+		currentFallTime = 10000.0f; // 스킬 사용중에는 떨어지지 않도록 설정
+
+		for (int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				if (grid[x, y] != null)
+				{
+					BlockData data = grid[x, y].GetComponent<BlockData>();
+					data.OnUseGravity(gravityScale);
+				}
+			}
+		}
+		yield return new WaitForSeconds(2.0f); // 2초 대기
+		StartCoroutine(CheckForLines()); // 라인 검사가 끝난 뒤에 currentFallTime을 되돌림
 	}
 
 	// 게임 시작시 정보를 받아 설정함
@@ -125,13 +161,13 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void setBlockChanged()
+	public void SetBlockChanged()
 	{
 		blockChanged = false;
 	}
 
 	// 테트리스 블록 저장
-	public void saveBlock()
+	public void SaveBlock()
 	{
 		if (blockChanged == false)
 		{
@@ -178,7 +214,9 @@ public class GameManager : MonoBehaviour
 	public void AddGravityGage(float amount)
 	{
 		gage = Mathf.Clamp(gage + amount, 0.0f, 1.0f);
-		um.AddGravityGage(amount);
+		um.SetGravityGage(gage);
+
+		if (gage >= 1.0f) um.gravIcon.SetActive(true);
 	}
 
 
@@ -211,6 +249,7 @@ public class GameManager : MonoBehaviour
 				}
 			}
 		}
+		currentFallTime = fallTime;
 	}
 
 	// y

@@ -98,6 +98,8 @@ MonoBehaviour:
   go_blockValue: {fileID: 8551914165057149456}
   blockValue: 
   chanceNum: 100
+  blockRenderer: {fileID: 0}
+  markRenderer: {fileID: 0}
 --- !u!1 &2131951451600526482
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +198,8 @@ MonoBehaviour:
   go_blockValue: {fileID: 2832997416751809520}
   blockValue: 
   chanceNum: 100
+  blockRenderer: {fileID: 0}
+  markRenderer: {fileID: 0}
 --- !u!1 &2131951451738418045
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +352,8 @@ MonoBehaviour:
   go_blockValue: {fileID: 5386101971505228747}
   blockValue: 
   chanceNum: 0
+  blockRenderer: {fileID: 0}
+  markRenderer: {fileID: 0}
 --- !u!1 &2131951452570241459
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +452,8 @@ MonoBehaviour:
   go_blockValue: {fileID: 7450632826677138826}
   blockValue: 
   chanceNum: 100
+  blockRenderer: {fileID: 0}
+  markRenderer: {fileID: 0}
 --- !u!1 &2832997416751809520
 GameObject:
   m_ObjectHideFlags: 0

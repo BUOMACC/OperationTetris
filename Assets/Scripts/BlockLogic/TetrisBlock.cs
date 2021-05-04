@@ -10,7 +10,6 @@ public class TetrisBlock : MonoBehaviour
 	//public int chanceNum = 90; // 숫자가 나올 확률 (90이면 90%)
 
 	public Vector3 rotationPoint;
-	public float fallTime = 0.8f;
 	private float previousTime;
 
 	GameManager gm; // GameManager 게임의 흐름을 관리
@@ -51,11 +50,11 @@ public class TetrisBlock : MonoBehaviour
 		}
 		else if (Input.GetKeyDown(KeyCode.Space)) // Block Save
 		{
-			gm.saveBlock();
+			gm.SaveBlock();
 		}
 
 		// Down / Fast Down
-		if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
+		if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? gm.currentFallTime / 10 : gm.currentFallTime))
 		{
 			transform.position += new Vector3(0, -1, 0);
 			if (!ValidMove())
@@ -63,12 +62,11 @@ public class TetrisBlock : MonoBehaviour
 				transform.position -= new Vector3(0, -1, 0);
 				AddToGrid();
 				StartCoroutine(gm.CheckForLines());
-				//gm.CheckForLines();
 
 				this.enabled = false;
 				gm.NewTetrisBlock();
 
-				gm.setBlockChanged(); // 블록을 한 번만 바꿀 수 있게 해놓은 제한을 풀어줌
+				gm.SetBlockChanged(); // 블록을 한 번만 바꿀 수 있게 해놓은 제한을 풀어줌
 			}
 			previousTime = Time.time;
 		}
@@ -78,7 +76,6 @@ public class TetrisBlock : MonoBehaviour
     {
 		previousTime = n;
     }
-
 
 	void RotateBlock(float angle)
 	{
@@ -113,7 +110,7 @@ public class TetrisBlock : MonoBehaviour
 			int roundedX = Mathf.RoundToInt(children.transform.position.x);
 			int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
-			gm.grid[roundedX, roundedY] = children;
+			GameManager.grid[roundedX, roundedY] = children;
 		}
 	}
 
@@ -169,12 +166,12 @@ public class TetrisBlock : MonoBehaviour
 			int roundedX = Mathf.RoundToInt(children.transform.position.x);
 			int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
-			if(roundedX < 0 || roundedX >= gm.width || roundedY < 0 || roundedY >= gm.height)
+			if (roundedX < 0 || roundedX >= gm.width || roundedY < 0 || roundedY >= gm.height)
 			{
 				return false;
 			}
 
-			if(gm.grid[roundedX,roundedY] != null)
+			if (GameManager.grid[roundedX, roundedY] != null)
 			{
 				return false;
 			}
