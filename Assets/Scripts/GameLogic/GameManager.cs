@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
 
 	public long score = 0;
+	public float gage = 0.0f;
 
 	public GameObject[] blocks;
 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
 	[Header("GameSetting")]
 	public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
 	public GameSetting.Mode mode = GameSetting.Mode.Normal;
+	public float addGravityGage = 0.025f;
 	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
 
 	// Sprite List (숫자, 연산자 리스트)
@@ -173,6 +175,12 @@ public class GameManager : MonoBehaviour
 		um.SetScoreText(string.Format("{0:#,##0}", amount), string.Format("{0:#,##0}", score));
 	}
 
+	public void AddGravityGage(float amount)
+	{
+		gage += amount;
+		um.AddGravityGage(amount);
+	}
+
 
 // GameGrid Logic
 	// 라인 체크
@@ -186,7 +194,8 @@ public class GameManager : MonoBehaviour
 				{
 					long score = CalcExpression(y);
 					AddScore(score);
-					if(difficulty == GameSetting.Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
+					AddGravityGage(addGravityGage);
+					if (difficulty == GameSetting.Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
 					{
 						DeleteLine(y);
 						yield return new WaitForSeconds(destroyTime);
