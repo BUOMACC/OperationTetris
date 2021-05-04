@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
 
 	public void AddGravityGage(float amount)
 	{
-		gage += amount;
+		gage = Mathf.Clamp(gage + amount, 0.0f, 1.0f);
 		um.AddGravityGage(amount);
 	}
 
