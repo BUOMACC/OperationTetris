@@ -49,9 +49,13 @@ public class TetrisBlock : MonoBehaviour
 				RotateBlock(-90);
 			}
 		}
+		else if (Input.GetKeyDown(KeyCode.Space)) // Block Save
+		{
+			gm.saveBlock();
+		}
 
 		// Down / Fast Down
-		if(Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
+		if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
 		{
 			transform.position += new Vector3(0, -1, 0);
 			if (!ValidMove())
@@ -63,6 +67,8 @@ public class TetrisBlock : MonoBehaviour
 
 				this.enabled = false;
 				gm.NewTetrisBlock();
+
+				gm.setBlockChanged(); // 블록을 한 번만 바꿀 수 있게 해놓은 제한을 풀어줌
 			}
 			previousTime = Time.time;
 		}

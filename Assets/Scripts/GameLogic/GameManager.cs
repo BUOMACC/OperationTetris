@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
 	// 블록 배열
 	private GameObject[] blockList = new GameObject[4];
 
+	// 블록 교체(저장)
+	private GameObject savedBlock = new GameObject();
+	private GameObject savedBlocktemp = new GameObject();
+	private bool blockChanged = false;
+
 	void Awake()
 	{
 		// Grid Size 정의
@@ -79,7 +84,7 @@ public class GameManager : MonoBehaviour
 		SetBlockPosition();
 	}
 
-	//테트리스 블록 위치 설정
+	// 테트리스 블록 위치 설정
 	public void SetBlockPosition()
     {
 		blockList[0].GetComponent<TetrisBlock>().SetPreviousTime(Time.time); // 현재 시간을 넣어줌으로써 바로 떨어지는 것을 방지
@@ -99,6 +104,38 @@ public class GameManager : MonoBehaviour
 				blockList[i].transform.position = new Vector3(9.7f, 16.3f - (i - 1) * 3f, 0);
 			}
 			blockList[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); // 미리보기는 크기 줄임
+		}
+	}
+
+	public void setBlockChanged()
+	{
+		blockChanged = false;
+	}
+
+	// 테트리스 블록 저장
+	public void saveBlock()
+	{
+		if (blockChanged == false)
+		{
+			if (savedBlock == null) // 처음 블록 저장을 했을 때
+			{
+				savedBlock = blockList[0];
+				NewTetrisBlock();
+			}
+			else // 두 번째 이후
+			{
+				savedBlocktemp = savedBlock;
+				savedBlock = blockList[0];
+				blockList[0] = savedBlocktemp;
+				SetBlockPosition();
+			}
+
+			// 저장한 블록 위치 설정
+			savedBlock.transform.position = new Vector3(10.05f, 5.3f, 0);
+			savedBlock.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+			savedBlock.GetComponent<TetrisBlock>().enabled = false;
+
+			blockChanged = true;
 		}
 	}
 
