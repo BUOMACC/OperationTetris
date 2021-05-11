@@ -192,11 +192,11 @@ public class GameManager : MonoBehaviour
 			if (savedBlock.tag.Equals("Block_B"))
 
 			{
-				savedBlock.transform.position = new Vector3(10.05f, 5.3f, 0); // 모양에 따라 위치 변경
+				savedBlock.transform.position = new Vector3(10.05f, 6.7f, 0); // 모양에 따라 위치 변경
 			}
 			else
 			{
-				savedBlock.transform.position = new Vector3(9.7f, 5.3f, 0);
+				savedBlock.transform.position = new Vector3(9.7f, 6.7f, 0);
 			}
 			savedBlock.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
 			savedBlock.GetComponent<TetrisBlock>().ResetBlockRatation();
