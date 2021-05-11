@@ -23,6 +23,13 @@ public class GameSetting : MonoBehaviour
 	}
 	public Mode mode = Mode.Normal;
 
+	// Login Data
+	public bool isOnline = false;
+	// 로그인시 uID와 aID가 매치되어야함 (uID = 고유 아이디, 번호
+	//									aID = 계정 아이디)
+	public int uID = 0;
+	public string aID = "";
+
 	void Awake()
 	{
 		#region Singleton

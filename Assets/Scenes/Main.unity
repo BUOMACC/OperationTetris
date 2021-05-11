@@ -2142,6 +2142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   mode: 0
+  isOnline: 0
+  uID: 0
+  aID: 
 --- !u!4 &1404267354
 Transform:
   m_ObjectHideFlags: 0
@@ -2550,7 +2553,7 @@ GameObject:
   - component: {fileID: 1829836557}
   - component: {fileID: 1829836556}
   m_Layer: 0
-  m_Name: AccountManager
+  m_Name: DBManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour
 
 	public void GameOver()
     {
+		um.ShowGameOverUI(true, score);
 		Debug.Log("Game Over");
     }
 
