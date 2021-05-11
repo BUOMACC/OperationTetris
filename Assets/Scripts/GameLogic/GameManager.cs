@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
 	public string[] spritesName;
 	public string[] operators = { "+", "-", "*", "/" };
 
+	[Header("Sound")]
+	public AudioSource effectAudioSource;
+	public AudioSource bgmAudioSource;
+	public AudioClip[] soundList;
+
 	// 필요 Component
 	private GameUIManager um;
 
@@ -285,7 +290,7 @@ public class GameManager : MonoBehaviour
 					yield return new WaitForSeconds(destroyTime);
 					RowDown(y);
 				}
-				GameSetting.instance.PlayBlockDeleteSound();
+				PlayEffectSound(0);
 			}
 		}
 		currentFallTime = fallTime;
@@ -428,5 +433,11 @@ public class GameManager : MonoBehaviour
 		Debug.Log(expression + "계산결과: " + res);
 
 		return res;
+	}
+
+	public void PlayEffectSound(int index)
+	{
+		effectAudioSource.clip = soundList[index];
+		effectAudioSource.Play();
 	}
 }

@@ -30,15 +30,6 @@ public class GameSetting : MonoBehaviour
 	public int uID = 0;
 	public string aID = "";
 
-	// Audio
-	private AudioSource blockDeleteSound;
-
-	public void PlayBlockDeleteSound()
-    {
-		blockDeleteSound.Play();
-
-	}
-
 	void Awake()
 	{
 		#region Singleton
@@ -53,6 +44,5 @@ public class GameSetting : MonoBehaviour
 		}
 
 		#endregion // 세팅은 하나만 존재하도록 싱글톤 사용
-		blockDeleteSound = this.gameObject.GetComponent<AudioSource>();
 	}
 }
