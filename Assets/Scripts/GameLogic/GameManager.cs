@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 	public float addGravityGage = 0.025f;
 	public float gravityScale = 0.08f;
 	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
+	public float limitTime = 300f;
 
 	// Sprite List (숫자, 연산자 리스트)
 	[Header("Number, Operator List")]
@@ -46,6 +47,12 @@ public class GameManager : MonoBehaviour
 	private GameObject savedBlocktemp;
 	private bool blockChanged = false;
 
+	// 남은 시간
+	private float currentLimitTime;
+
+	// 게임 오버
+	private bool gameOver = false;
+
 	void Awake()
 	{
 		// Grid Size 정의
@@ -57,21 +64,30 @@ public class GameManager : MonoBehaviour
 	{
 		InitGameSetting();
 		InitNextBlock();
+		InitGameMode();
 		NewTetrisBlock();
 	}
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.E))
-		{
-			if(gage >= 1.0f)
+		if(gameOver == false)
+        {
+			if (Input.GetKeyDown(KeyCode.E))
 			{
-				gage = 0.0f;
-				um.SetGravityGage(0.0f);
-				um.gravIcon.SetActive(false);
-				StartCoroutine(BlockGravityCoroutine());
+				if (gage >= 1.0f)
+				{
+					gage = 0.0f;
+					um.SetGravityGage(0.0f);
+					um.gravIcon.SetActive(false);
+					StartCoroutine(BlockGravityCoroutine());
+				}
+			}
+			if (mode == GameSetting.Mode.TimeAttack && currentLimitTime >= 0)
+			{
+				SetLimitTime();
 			}
 		}
+		
 	}
 
 	// 블록 중력
@@ -110,18 +126,32 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void InitGameMode()
+	{
+		if (mode == GameSetting.Mode.TimeAttack)
+		{
+			currentLimitTime = limitTime;
+		}
+	}
+
 	public bool CheckGameOver()
-    {
+	{
 		if (grid[4, 19] != null) // 블록이 스폰되는 위치에 데이터가 저장되어 있으면
 		{
 			GameOver();
 			return true;
 		}
+		else if (mode == GameSetting.Mode.TimeAttack && currentLimitTime <= 0)
+		{
+			GameOver();
+			return true;
+		}
 		return false;
-    }
+	}
 
 	public void GameOver()
     {
+		gameOver = true;
 		um.ShowGameOverUI(true, score);
 		Debug.Log("Game Over");
     }
@@ -203,6 +233,13 @@ public class GameManager : MonoBehaviour
 
 			blockChanged = true;
 		}
+	}
+
+	// 남은 시간 변경
+	public void SetLimitTime()
+	{
+		currentLimitTime -= Time.deltaTime;
+		um.SetLimitTimeText((int)currentLimitTime);
 	}
 
 	// 점수 추가

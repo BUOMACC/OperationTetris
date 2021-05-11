@@ -25,6 +25,15 @@ public class GameUIManager : MonoBehaviour
 	public Text endScoreText;
 	public Text endLineClearText;
 
+	// TimeAttack Mode
+	[Header("TimeAttack Mode")]
+	public Text limitTimeText;
+
+	public void SetLimitTimeText(float limitTime)
+	{
+		limitTimeText.text = "남은시간 : " + limitTime + "초";
+	}
+
 
 	public void SetScoreText(string amount, string currentScore)
 	{
