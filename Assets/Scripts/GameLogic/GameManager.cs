@@ -285,6 +285,7 @@ public class GameManager : MonoBehaviour
 					yield return new WaitForSeconds(destroyTime);
 					RowDown(y);
 				}
+				GameSetting.instance.PlayBlockDeleteSound();
 			}
 		}
 		currentFallTime = fallTime;
