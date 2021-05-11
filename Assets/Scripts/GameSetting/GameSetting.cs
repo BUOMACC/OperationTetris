@@ -30,6 +30,7 @@ public class GameSetting : MonoBehaviour
 	public int uID = 0;
 	public string aID = "";
 
+
 	void Awake()
 	{
 		#region Singleton

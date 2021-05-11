@@ -28,7 +28,13 @@ public class GameManager : MonoBehaviour
 	public float addGravityGage = 0.025f;
 	public float gravityScale = 0.08f;
 	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
+
+	[Header("GameSetting : TimeAttack")]
 	public float limitTime = 300f;
+
+	[Header("GameSetting : Puzzle")]
+	public int level = 1;
+	public int nextPuzzleBlockCnt = 0;
 
 	// Sprite List (숫자, 연산자 리스트)
 	[Header("Number, Operator List")]
@@ -43,8 +49,10 @@ public class GameManager : MonoBehaviour
 
 	// 필요 Component
 	private GameUIManager um;
+	private PuzzleMode puzzleMode;
 
 	// 블록 배열
+	[SerializeField]
 	private GameObject[] blockList = new GameObject[4];
 
 	// 블록 교체(저장)
@@ -63,13 +71,17 @@ public class GameManager : MonoBehaviour
 		// Grid Size 정의
 		grid = new Transform[width, height];
 		um = FindObjectOfType<GameUIManager>();
+		puzzleMode = FindObjectOfType<PuzzleMode>();
 	}
 
 	void Start()
 	{
 		InitGameSetting();
 		InitNextBlock();
-		InitGameMode();
+
+		SetTimeAttackMode();
+		SetPuzzleMode();
+
 		NewTetrisBlock();
 	}
 
@@ -125,17 +137,26 @@ public class GameManager : MonoBehaviour
 	// 처음 실행시 다음 블록 3개를 스폰
 	public void InitNextBlock()
 	{
-		for (int i = 1; i < 4; i++) // 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
+		if (mode == GameSetting.Mode.Normal)
 		{
-			blockList[i] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+			for (int i = 1; i < 4; i++) // 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
+			{
+				blockList[i] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+			}
 		}
-	}
-
-	public void InitGameMode()
-	{
-		if (mode == GameSetting.Mode.TimeAttack)
+		else if (mode == GameSetting.Mode.Puzzle)
 		{
-			currentLimitTime = limitTime;
+			Stage stage = puzzleMode.stages[level - 1];
+			int max = Mathf.Clamp(stage.nextBlocks.Length, 0, 3);
+			for (int i = 1; i < max+1; i++) // 퍼즐모드의 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
+			{
+				if (nextPuzzleBlockCnt >= stage.nextBlocks.Length) return;
+
+				blockList[i] = stage.nextBlocks[nextPuzzleBlockCnt];
+				blockList[i].SetActive(true);
+
+				nextPuzzleBlockCnt++;
+			}
 		}
 	}
 
@@ -164,11 +185,19 @@ public class GameManager : MonoBehaviour
 	// 테트리스 블록 스폰
 	public void NewTetrisBlock()
 	{
+		if (mode == GameSetting.Mode.Puzzle)
+			NewPuzzleTetrisBlock(); // 퍼즐모드
+		else
+			NewDefaultTetrisBlock(); // 일반모드
+	}
+
+	public void NewDefaultTetrisBlock()
+	{
 		if (CheckGameOver()) return;
-		for (int i=0; i<3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
-        {
+		for (int i = 0; i < 3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
+		{
 			blockList[i] = blockList[i + 1];
-        }
+		}
 		blockList[3] = Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity); // 새로운 블록 하나 생성 (3번)
 
 		SetBlockPosition();
@@ -182,18 +211,21 @@ public class GameManager : MonoBehaviour
 		blockList[0].transform.localScale = new Vector3(1, 1, 1);
 		blockList[0].GetComponent<TetrisBlock>().enabled = true;
 
-		for (int i=1; i<4; i++) // 블록 모양 구분 이름 말고 다른 방법이 좋을거같음
+		for (int i=1; i<4; i++)
 		{
-			if (blockList[i].tag.Equals("Block_B")) 
-				
+			if(blockList[i] != null)
 			{
-				blockList[i].transform.position = new Vector3(10.05f, 16.3f - (i - 1) * 3f, 0); // 모양에 따라 위치 변경
+				if (blockList[i].tag.Equals("Block_B"))
+
+				{
+					blockList[i].transform.position = new Vector3(10.05f, 16.3f - (i - 1) * 3f, 0); // 모양에 따라 위치 변경
+				}
+				else
+				{
+					blockList[i].transform.position = new Vector3(9.7f, 16.3f - (i - 1) * 3f, 0);
+				}
+				blockList[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); // 미리보기는 크기 줄임
 			}
-			else
-			{
-				blockList[i].transform.position = new Vector3(9.7f, 16.3f - (i - 1) * 3f, 0);
-			}
-			blockList[i].transform.localScale = new Vector3(0.7f, 0.7f, 0.7f); // 미리보기는 크기 줄임
 		}
 	}
 
@@ -334,6 +366,86 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+
+
+	// Mode: TimeAttack
+	private void SetTimeAttackMode()
+	{
+		if (mode == GameSetting.Mode.TimeAttack)
+		{
+			currentLimitTime = limitTime;
+		}
+	}
+
+
+
+	// Mode: Puzzle
+	private void SetPuzzleMode()
+	{
+		if (mode == GameSetting.Mode.Puzzle)
+		{
+			// 설정한 값들 그리드에 배치
+			Stage stage = puzzleMode.stages[level-1];
+			for (int i = 0; i < stage.gridDatas.Length; i++)
+			{
+				int posX = (int)stage.gridDatas[i].pos.x;
+				int posY = (int)stage.gridDatas[i].pos.y;
+				GameObject block = Instantiate(puzzleMode.block, new Vector3(posX, posY, 0), Quaternion.identity);
+				BlockData data = block.GetComponentInChildren<BlockData>();
+
+				data.blockValue = stage.gridDatas[i].blockValue;
+
+				string sn = GetSpriteName(data.blockValue);
+				data.markRenderer.sprite = atlas.GetSprite(sn);
+				data.blockRenderer.color = stage.gridDatas[i].blockColor;
+
+				grid[posX, posY] = block.transform;
+			}
+		}
+	}
+
+	public void NewPuzzleTetrisBlock()
+	{
+		if (CheckGameOver()) return;
+		if (blockList[1] == null && blockList[2] == null && blockList[3] == null)
+			return;
+
+		Stage stage = puzzleMode.stages[level - 1];
+		for (int i = 0; i < 3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
+		{
+			blockList[i] = blockList[i + 1];
+		}
+
+		if (nextPuzzleBlockCnt >= stage.nextBlocks.Length)
+		{
+			blockList[3] = null;
+		}
+		else
+		{
+			blockList[3] = stage.nextBlocks[nextPuzzleBlockCnt]; // 새로운 블록 하나 생성 (3번)
+			blockList[3].SetActive(true);
+		}
+		nextPuzzleBlockCnt++;
+
+		SetBlockPosition();
+	}
+
+	public string GetSpriteName(string c)
+	{
+		switch (c)
+		{
+			case "+":
+				return spritesName[10];
+			case "-":
+				return spritesName[11];
+			case "*":
+				return spritesName[12];
+			case "/":
+				return spritesName[13];
+			default:
+				return spritesName[int.Parse(c)];
+		}
+	}
 
 
 
