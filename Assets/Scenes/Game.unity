@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 0
-  mode: 0
+  mode: 2
   isOnline: 0
   uID: 0
   aID: 

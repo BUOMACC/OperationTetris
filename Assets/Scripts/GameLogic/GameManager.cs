@@ -175,13 +175,35 @@ public class GameManager : MonoBehaviour
 		else if (mode == GameSetting.Mode.Puzzle)
 		{
 			Stage stage = puzzleMode.stages[level - 1];
-			if(score == stage.targetScore)
+			// 모든 블록을 다 사용했지만 점수가 일치하지 않다면 게임오버
+			if(score != stage.targetScore && blockList[1] == null &&
+											 blockList[2] == null && blockList[3] == null)
 			{
 				GameOver();
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public bool CheckGameClear()
+	{
+		if (mode == GameSetting.Mode.Puzzle)
+		{
+			Stage stage = puzzleMode.stages[level - 1];
+			// 모든 블록을 다 사용했지만 점수가 일치하지 않다면 게임오버
+			if (score == stage.targetScore)
+			{
+				GameClear();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void GameClear()
+	{
+		Debug.Log("Clear");
 	}
 
 	public void GameOver()
@@ -293,16 +315,6 @@ public class GameManager : MonoBehaviour
 	{
 		score += amount;
 		um.SetScoreText(string.Format("{0:#,##0}", amount), string.Format("{0:#,##0}", score));
-
-		if(mode == GameSetting.Mode.Puzzle)
-		{
-			// 목적 스코어에 도달시
-			Stage stage = puzzleMode.stages[level - 1];
-			if(score == stage.targetScore)
-			{
-				Debug.Log("Clear!");
-			}
-		}
 	}
 
 	public void AddGravityGage(float amount)
@@ -426,6 +438,7 @@ public class GameManager : MonoBehaviour
 	public void NewPuzzleTetrisBlock()
 	{
 		if (CheckGameOver()) return;
+		if (CheckGameClear()) return;
 		if (blockList[1] == null && blockList[2] == null && blockList[3] == null)
 			return;
 
