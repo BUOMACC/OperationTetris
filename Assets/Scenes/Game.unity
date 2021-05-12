@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 0
-  mode: 2
+  mode: 0
   isOnline: 0
   uID: 0
   aID: 
@@ -1802,17 +1802,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - name: Stage_01
+    targetScore: 419
     nextBlocks:
     - {fileID: 286130616}
+    - {fileID: 1624867183}
+    - {fileID: 1424941635}
+    - {fileID: 1933439669}
     gridDatas:
     - pos: {x: 0, y: 0}
       blockValue: 1
       blockColor: {r: 1, g: 1, b: 1, a: 1}
     - pos: {x: 1, y: 0}
-      blockValue: '*'
+      blockValue: +
+      blockColor: {r: 1, g: 1, b: 1, a: 1}
+    - pos: {x: 2, y: 0}
+      blockValue: 2
+      blockColor: {r: 1, g: 1, b: 1, a: 1}
+    - pos: {x: 3, y: 0}
+      blockValue: +
+      blockColor: {r: 1, g: 1, b: 1, a: 1}
+    - pos: {x: 4, y: 0}
+      blockValue: 3
       blockColor: {r: 1, g: 1, b: 1, a: 1}
     - pos: {x: 5, y: 0}
       blockValue: +
+      blockColor: {r: 1, g: 1, b: 1, a: 1}
+    - pos: {x: 6, y: 0}
+      blockValue: 4
       blockColor: {r: 1, g: 1, b: 1, a: 1}
   block: {fileID: 8506917443732652781, guid: 4b236db2c592bf34bbb9024df26b2a09, type: 3}
 --- !u!4 &843774938
@@ -2977,6 +2993,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abdf241db4b63bd4583bf4d99416d50c, type: 3}
+--- !u!1 &1424941635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8371995107145590280, guid: 4d8d7c5ca8be94b4c9d7c7bf217e2515,
+    type: 3}
+  m_PrefabInstance: {fileID: 404821137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1504485099
 GameObject:
   m_ObjectHideFlags: 0
@@ -3211,6 +3233,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608010543}
   m_CullTransparentMesh: 0
+--- !u!1 &1624867183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6714785769665110269, guid: a697c5e3d0524454d97a77699a090edb,
+    type: 3}
+  m_PrefabInstance: {fileID: 221568099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1642585937
 GameObject:
   m_ObjectHideFlags: 0
@@ -3484,6 +3512,12 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -208}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1933439669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7786696198444517982, guid: 89c53ffc95244fb4da57af09154bbf6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 970616651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2038513552
 GameObject:
   m_ObjectHideFlags: 0

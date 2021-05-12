@@ -15,6 +15,7 @@ public class GridData
 public class Stage
 {
 	public string name;
+	public double targetScore;
 	public GameObject[] nextBlocks;
 	public GridData[] gridDatas;
 }

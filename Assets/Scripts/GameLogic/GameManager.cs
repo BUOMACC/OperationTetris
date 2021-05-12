@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 	public static Transform[,] grid;
 
 	[Header("GameSetting")]
-	public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
-	public GameSetting.Mode mode = GameSetting.Mode.Normal;
+	[HideInInspector] public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
+	[HideInInspector] public GameSetting.Mode mode = GameSetting.Mode.Normal;
 	public float currentFallTime = 0.8f;
 	public float fallTime = 0.8f;
 	public float addGravityGage = 0.025f;
@@ -172,6 +172,15 @@ public class GameManager : MonoBehaviour
 			GameOver();
 			return true;
 		}
+		else if (mode == GameSetting.Mode.Puzzle)
+		{
+			Stage stage = puzzleMode.stages[level - 1];
+			if(score == stage.targetScore)
+			{
+				GameOver();
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -284,6 +293,16 @@ public class GameManager : MonoBehaviour
 	{
 		score += amount;
 		um.SetScoreText(string.Format("{0:#,##0}", amount), string.Format("{0:#,##0}", score));
+
+		if(mode == GameSetting.Mode.Puzzle)
+		{
+			// 목적 스코어에 도달시
+			Stage stage = puzzleMode.stages[level - 1];
+			if(score == stage.targetScore)
+			{
+				Debug.Log("Clear!");
+			}
+		}
 	}
 
 	public void AddGravityGage(float amount)
