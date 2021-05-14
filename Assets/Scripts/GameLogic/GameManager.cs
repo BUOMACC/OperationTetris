@@ -42,11 +42,6 @@ public class GameManager : MonoBehaviour
 	public string[] spritesName;
 	public string[] operators = { "+", "-", "*", "/" };
 
-	[Header("Sound")]
-	public AudioSource effectAudioSource;
-	public AudioSource bgmAudioSource;
-	public AudioClip[] soundList;
-
 	// 필요 Component
 	private GameUIManager um;
 	private PuzzleMode puzzleMode;
@@ -65,6 +60,8 @@ public class GameManager : MonoBehaviour
 
 	// 게임 오버
 	private bool gameOver = false;
+
+	AudioManager theAudioManager;
 
 	void Awake()
 	{
@@ -132,6 +129,7 @@ public class GameManager : MonoBehaviour
 	{
 		difficulty = GameSetting.instance.difficulty; // 난이도 설정
 		mode = GameSetting.instance.mode; // 모드 설정
+		theAudioManager = AudioManager.instance;
 	}
 
 	// 처음 실행시 다음 블록 3개를 스폰
@@ -345,15 +343,18 @@ public class GameManager : MonoBehaviour
 						yield return new WaitForSeconds(destroyTime);
 						RowDown(y);
 					}
+					theAudioManager.PlaySFX("LineClearSuccess");
 				}
-
-				if (difficulty == GameSetting.Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
-				{
-					DeleteLine(y);
-					yield return new WaitForSeconds(destroyTime);
-					RowDown(y);
-				}
-				PlayEffectSound(0);
+				else // 식이 완성되지 않았을 경우
+                {
+					if (difficulty == GameSetting.Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
+					{
+						DeleteLine(y);
+						yield return new WaitForSeconds(destroyTime);
+						RowDown(y);
+					}
+					theAudioManager.PlaySFX("LineClearFail");
+				}				
 			}
 		}
 		currentFallTime = fallTime;
@@ -578,11 +579,5 @@ public class GameManager : MonoBehaviour
 		Debug.Log(expression + "계산결과: " + res);
 
 		return res;
-	}
-
-	public void PlayEffectSound(int index)
-	{
-		effectAudioSource.clip = soundList[index];
-		effectAudioSource.Play();
 	}
 }
