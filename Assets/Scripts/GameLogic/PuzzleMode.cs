@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
-public class GridData
-{
-	public Vector2 pos;
-	public string blockValue = "0";
-	public Color blockColor = Color.white;
-}
 
 [System.Serializable]
 public class Stage
@@ -17,11 +10,11 @@ public class Stage
 	public string name;
 	public double targetScore;
 	public GameObject[] nextBlocks;
-	public GridData[] gridDatas;
+	public Map map;
 }
 
 public class PuzzleMode : MonoBehaviour
 {
-	public Stage[] stages;
 	public GameObject block;
+	public Stage[] stages;
 }

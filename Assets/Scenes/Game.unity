@@ -1406,7 +1406,6 @@ MonoBehaviour:
   destroyTime: 0.2
   limitTime: 300
   level: 1
-  nextPuzzleBlockCnt: 0
   atlas: {fileID: 4343727234628468602, guid: b324ef6ed95c99a459d120d043fbd389, type: 2}
   spritesName:
   - Image_0
@@ -1800,6 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6a03e4eeae8624294ca5e2a4cc654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  block: {fileID: 8506917443732652781, guid: 4b236db2c592bf34bbb9024df26b2a09, type: 3}
   stages:
   - name: Stage_01
     targetScore: 419
@@ -1808,29 +1808,7 @@ MonoBehaviour:
     - {fileID: 1624867183}
     - {fileID: 1424941635}
     - {fileID: 1933439669}
-    gridDatas:
-    - pos: {x: 0, y: 0}
-      blockValue: 1
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-    - pos: {x: 1, y: 0}
-      blockValue: +
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-    - pos: {x: 2, y: 0}
-      blockValue: 2
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-    - pos: {x: 3, y: 0}
-      blockValue: +
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-    - pos: {x: 4, y: 0}
-      blockValue: 3
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-    - pos: {x: 5, y: 0}
-      blockValue: +
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-    - pos: {x: 6, y: 0}
-      blockValue: 4
-      blockColor: {r: 1, g: 1, b: 1, a: 1}
-  block: {fileID: 8506917443732652781, guid: 4b236db2c592bf34bbb9024df26b2a09, type: 3}
+    map: {fileID: 11400000, guid: 857cf7beb2fda134b986419cc83af89a, type: 2}
 --- !u!4 &843774938
 Transform:
   m_ObjectHideFlags: 0

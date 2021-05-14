@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
 	[Header("GameSetting : Puzzle")]
 	public int level = 1;
-	public int nextPuzzleBlockCnt = 0;
+	private int nextPuzzleBlockCnt = 0;
 
 	// Sprite List (숫자, 연산자 리스트)
 	[Header("Number, Operator List")]
@@ -417,18 +417,19 @@ public class GameManager : MonoBehaviour
 		{
 			// 설정한 값들 그리드에 배치
 			Stage stage = puzzleMode.stages[level-1];
-			for (int i = 0; i < stage.gridDatas.Length; i++)
+			Map map = stage.map;
+			for (int i = 0; i < map.gridDatas.Length; i++)
 			{
-				int posX = (int)stage.gridDatas[i].pos.x;
-				int posY = (int)stage.gridDatas[i].pos.y;
+				int posX = (int)map.gridDatas[i].pos.x;
+				int posY = (int)map.gridDatas[i].pos.y;
 				GameObject block = Instantiate(puzzleMode.block, new Vector3(posX, posY, 0), Quaternion.identity);
 				BlockData data = block.GetComponentInChildren<BlockData>();
 
-				data.blockValue = stage.gridDatas[i].blockValue;
+				data.blockValue = map.gridDatas[i].blockValue;
 
 				string sn = GetSpriteName(data.blockValue);
 				data.markRenderer.sprite = atlas.GetSprite(sn);
-				data.blockRenderer.color = stage.gridDatas[i].blockColor;
+				data.blockRenderer.color = map.gridDatas[i].blockColor;
 
 				grid[posX, posY] = block.transform;
 			}
