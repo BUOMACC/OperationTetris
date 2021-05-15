@@ -337,12 +337,11 @@ public class GameManager : MonoBehaviour
 					long score = CalcExpression(y);
 					AddScore(score);
 					AddGravityGage(addGravityGage);
-					if (difficulty == GameSetting.Difficulty.Hard) // 하드 모드인 경우(식 완성이 된 경우에만 제거)
-					{
-						DeleteLine(y);
-						yield return new WaitForSeconds(destroyTime);
-						RowDown(y);
-					}
+
+					DeleteLine(y);
+					yield return new WaitForSeconds(destroyTime);
+					RowDown(y);
+
 					theAudioManager.PlaySFX("LineClearSuccess");
 				}
 				else // 식이 완성되지 않았을 경우
