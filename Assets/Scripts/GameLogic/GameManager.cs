@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
 		SetPuzzleMode();
 
 		NewTetrisBlock();
+
+		AudioManager.instance.PlayBGM("GameBGM");
 	}
 
 	void Update()
