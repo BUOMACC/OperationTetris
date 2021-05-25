@@ -36,6 +36,11 @@ public class PlayUIManager : MonoBehaviour
 		}
 	}
 
+	public void OptionBtn()
+    {
+		um.ShowOptionUI();
+    }
+
 	public void QuitBtn()
 	{
 		Application.Quit();
