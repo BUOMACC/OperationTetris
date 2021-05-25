@@ -11,7 +11,7 @@ public class MainUIManager : MonoBehaviour
 
 	void Start()
 	{
-
+		AudioManager.instance.PlayBGM("MainBGM");
 	}
 
 	public void ShowWaitUI()

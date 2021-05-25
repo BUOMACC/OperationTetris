@@ -846,8 +846,8 @@ MonoBehaviour:
   bgm:
   - name: GameBGM
     clip: {fileID: 8300000, guid: 6c23525edd9b1f748afddc88769092dc, type: 3}
-  - name: 
-    clip: {fileID: 0}
+  - name: MainBGM
+    clip: {fileID: 8300000, guid: e5fd8d96c8b7d5242b9fddf574000bf0, type: 3}
   - name: 
     clip: {fileID: 0}
   bgmPlayer: {fileID: 35941265}

@@ -6,6 +6,43 @@ public class GameSetting : MonoBehaviour
 {
 	public static GameSetting instance;
 
+	private OptionUIManager om;
+	private AudioManager am;
+
+	private int frameLimit;
+	private int bgm;
+	private int sfx;
+
+	void Start()
+    {
+		frameLimit = PlayerPrefs.GetInt("frameLimit", 60);
+		bgm = PlayerPrefs.GetInt("bgm", 100);
+		sfx = PlayerPrefs.GetInt("sfx", 100);
+	}
+
+	void Update()
+    {
+		AudioManager.instance.setBGMVolume(bgm);
+		AudioManager.instance.setSFXVolume(sfx);
+		Application.targetFrameRate = frameLimit;
+	}
+
+	public void setFrameLimit(int frameLimit)
+	{
+		this.frameLimit = frameLimit;
+	}
+
+	public void setBGM(int bgm)
+    {
+		this.bgm = bgm;
+    }
+
+	public void setSFX(int sfx)
+    {
+		this.sfx = sfx;
+    }
+
+
 	// Difficulty
 	public enum Difficulty
 	{

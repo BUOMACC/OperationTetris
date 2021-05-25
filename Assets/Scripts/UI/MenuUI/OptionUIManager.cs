@@ -1,36 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionUIManager : MonoBehaviour
 {
+	public static OptionUIManager instance;
+
+	private GameSetting gs;
+
+	public Slider frameLimitSlider;
+	public Slider bgmSlider;
+	public Slider sfxSlider;
+	public Toggle bloomToggle;
+	public Toggle cameraShakeToggle;
+
+	public Text fpsText;
+	public Text bgmText;
+	public Text sfxText;
+
+	void Update()
+	{
+		ChangeValue_LimitFPS();
+		ChangeValue_BGM();
+		ChangeValue_SFX();
+		ChangeValue_Bloom();
+		ChangeValue_CameraShake();
+	}
 
 	public void ChangeValue_LimitFPS()
 	{
-		// 슬라이더 값을 가져와 GameSetting에 저장, GameSetting에 변수선언 필요
+		GameSetting.instance.setFrameLimit((int)frameLimitSlider.value);
+		PlayerPrefs.SetInt("frameLimit", (int)frameLimitSlider.value);
+		fpsText.text = "" + frameLimitSlider.value;
 	}
 
 	public void ChangeValue_BGM()
 	{
-		// 슬라이더 값을 가져와 저장
+		GameSetting.instance.setBGM((int)bgmSlider.value);
+		PlayerPrefs.SetInt("bgm", (int)bgmSlider.value);
+		bgmText.text = "" + bgmSlider.value;
 	}
 
 	public void ChangeValue_SFX()
 	{
-		// 슬라이더 값을 가져와 저장
+		GameSetting.instance.setSFX((int)sfxSlider.value);
+		PlayerPrefs.SetInt("sfx", (int)sfxSlider.value);
+		sfxText.text = "" + sfxSlider.value;
 	}
 
 	public void ChangeValue_Bloom()
 	{
-		/*
-		 Element_Bloom 밑 Toggle 값에 따라 (체크박스 형식, if or switch로 체크)
-		 Camera.main.GetComponent<FastMobileBloom>().enabled = 값;
-		 */
+		if (bloomToggle.isOn == true)
+		{
+			Camera.main.GetComponent<FastMobileBloom>().enabled = true;
+		}
+        else
+        {
+			Camera.main.GetComponent<FastMobileBloom>().enabled = false;
+		}
 	}
 
 	public void ChangeValue_CameraShake()
 	{
-		// 미완
+		// 미완, if (cameraShakeToggle.isOn == true) ~~~~
 	}
 
 	public void CloseBtn()

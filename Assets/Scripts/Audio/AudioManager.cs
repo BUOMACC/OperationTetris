@@ -63,4 +63,17 @@ public class AudioManager : MonoBehaviour
         }
         Debug.Log(p_sfxName + "이름의 효과음이 없습니다.");
     }
+
+    public void setBGMVolume(int bgm)
+    {
+        bgmPlayer.volume = (float)bgm / 100;
+    }
+
+    public void setSFXVolume (int sfx)
+    {
+        for (int i = 0; i < sfxPlayer.Length; i++)
+        {
+            sfxPlayer[i].volume = sfx;
+        }
+    }
 }
