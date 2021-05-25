@@ -7,6 +7,7 @@ public class MainUIManager : MonoBehaviour
 	public GameObject waitUI;
 	public GameObject loginUI;
 	public GameObject playUI;
+	public GameObject optionUI;
 
 	void Start()
 	{
@@ -26,5 +27,10 @@ public class MainUIManager : MonoBehaviour
 		waitUI.SetActive(false);
 
 		playUI.SetActive(true);
+	}
+
+	public void ShowOptionUI()
+	{
+		optionUI.SetActive(true);
 	}
 }
