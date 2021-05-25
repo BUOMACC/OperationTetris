@@ -19,26 +19,19 @@ public class OptionUIManager : MonoBehaviour
 	public Text bgmText;
 	public Text sfxText;
 
-	void Update()
-	{
-		ChangeValue_LimitFPS();
-		ChangeValue_BGM();
-		ChangeValue_SFX();
-		ChangeValue_Bloom();
-		ChangeValue_CameraShake();
-	}
-
 	public void ChangeValue_LimitFPS()
 	{
 		GameSetting.instance.setFrameLimit((int)frameLimitSlider.value);
 		PlayerPrefs.SetInt("frameLimit", (int)frameLimitSlider.value);
-		fpsText.text = "" + frameLimitSlider.value;
+		Application.targetFrameRate = (int)frameLimitSlider.value;
+		fpsText.text = "" + frameLimitSlider.value;		
 	}
 
 	public void ChangeValue_BGM()
 	{
 		GameSetting.instance.setBGM((int)bgmSlider.value);
 		PlayerPrefs.SetInt("bgm", (int)bgmSlider.value);
+		AudioManager.instance.setBGMVolume((int)bgmSlider.value);
 		bgmText.text = "" + bgmSlider.value;
 	}
 
@@ -46,6 +39,7 @@ public class OptionUIManager : MonoBehaviour
 	{
 		GameSetting.instance.setSFX((int)sfxSlider.value);
 		PlayerPrefs.SetInt("sfx", (int)sfxSlider.value);
+		AudioManager.instance.setSFXVolume((int)sfxSlider.value);
 		sfxText.text = "" + sfxSlider.value;
 	}
 

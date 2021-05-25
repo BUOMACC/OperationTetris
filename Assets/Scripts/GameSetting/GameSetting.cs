@@ -20,13 +20,6 @@ public class GameSetting : MonoBehaviour
 		sfx = PlayerPrefs.GetInt("sfx", 100);
 	}
 
-	void Update()
-    {
-		AudioManager.instance.setBGMVolume(bgm);
-		AudioManager.instance.setSFXVolume(sfx);
-		Application.targetFrameRate = frameLimit;
-	}
-
 	public void setFrameLimit(int frameLimit)
 	{
 		this.frameLimit = frameLimit;
