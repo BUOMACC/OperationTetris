@@ -59,6 +59,7 @@ public class GameSetting : MonoBehaviour
 	//									aID = 계정 아이디)
 	public int uID = 0;
 	public string aID = "";
+	public string uName = "";
 
 
 	void Awake()
