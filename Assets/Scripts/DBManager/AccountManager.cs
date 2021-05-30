@@ -40,6 +40,7 @@ public class AccountManager : MonoBehaviour
 		if(!(req.isNetworkError || req.isHttpError))
 		{
 			string resultData = req.downloadHandler.text;
+			// ,로 나누어 값을 쪼갬 (UID, 성공리턴값 등을 구분하기 위해서)
 			string[] results = resultData.Split(',');
 
 			Debug.Log(resultData);
