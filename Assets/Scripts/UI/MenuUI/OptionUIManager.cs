@@ -24,7 +24,7 @@ public class OptionUIManager : MonoBehaviour
 		GameSetting.instance.setFrameLimit((int)frameLimitSlider.value);
 		PlayerPrefs.SetInt("frameLimit", (int)frameLimitSlider.value);
 		Application.targetFrameRate = (int)frameLimitSlider.value;
-		fpsText.text = "" + frameLimitSlider.value;		
+		fpsText.text = "" + frameLimitSlider.value;
 	}
 
 	public void ChangeValue_BGM()
