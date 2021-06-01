@@ -29,10 +29,25 @@ public class GameUIManager : MonoBehaviour
 	[Header("TimeAttack Mode")]
 	public Text limitTimeText;
 
-	public void SetLimitTimeText(float limitTime)
+	// Puzzle Mode
+	[Header("Puzzle Mode")]
+	public GameObject targetScore;
+	public Text targetScoreText;
+
+	public void SetPuzzleUI()
+    {
+		targetScore.SetActive(true);
+    }
+
+	public void SetLimitTimeText(double limitTime)
 	{
 		limitTimeText.text = "남은시간 : " + limitTime + "초";
 	}
+
+	public void SetTargetScore(double targetScore)
+    {
+		targetScoreText.text = "" + targetScore;
+    }
 
 
 	public void SetScoreText(string amount, string currentScore)

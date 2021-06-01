@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 		InitNextBlock();
 
 		SetTimeAttackMode();
+
 		SetPuzzleMode();
 
 		NewTetrisBlock();
@@ -410,8 +411,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-
-
 	// Mode: Puzzle
 	private void SetPuzzleMode()
 	{
@@ -435,6 +434,10 @@ public class GameManager : MonoBehaviour
 
 				grid[posX, posY] = block.transform;
 			}
+
+			// 목표 스코어 설정, 보여주기
+			um.SetTargetScore(stage.targetScore);
+			um.SetPuzzleUI();
 		}
 	}
 
