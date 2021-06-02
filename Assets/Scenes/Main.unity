@@ -7098,6 +7098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f06a679e51bbd43947002db2fb62a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionBack: {fileID: 1513267000}
   frameLimitSlider: {fileID: 845215070}
   bgmSlider: {fileID: 1016881381}
   sfxSlider: {fileID: 229049658}

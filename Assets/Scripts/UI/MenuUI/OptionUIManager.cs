@@ -8,6 +8,7 @@ public class OptionUIManager : MonoBehaviour
 	public static OptionUIManager instance;
 
 	private GameSetting gs;
+	public GameObject optionBack;
 
 	public Slider frameLimitSlider;
 	public Slider bgmSlider;
@@ -62,6 +63,6 @@ public class OptionUIManager : MonoBehaviour
 
 	public void CloseBtn()
 	{
-		this.gameObject.SetActive(false);
+		optionBack.SetActive(false);
 	}
 }
