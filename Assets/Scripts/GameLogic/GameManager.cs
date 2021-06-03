@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour
 
 	public void GameClear()
 	{
+		um.ShowGameClearUI(true, score);
 		Debug.Log("Clear");
 	}
 

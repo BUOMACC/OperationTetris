@@ -25,6 +25,13 @@ public class GameUIManager : MonoBehaviour
 	public Text endScoreText;
 	public Text endLineClearText;
 
+	// Game Clear
+	[Header("GameClaer")]
+	public GameObject gameClearUI;
+	public GameObject gameClearOkBtn;
+	public Text gameClearEndScoreText;
+	public Text gameClearEndLineClearText;
+
 	// TimeAttack Mode
 	[Header("TimeAttack Mode")]
 	public Text limitTimeText;
@@ -82,6 +89,12 @@ public class GameUIManager : MonoBehaviour
 		StartCoroutine(SetEndScoreTextCoroutine(endScore));
 	}
 
+	public void ShowGameClearUI(bool show, double endScore)
+    {
+		gameClearUI.SetActive(show);
+		StartCoroutine(SetClearScoreTextCoroutine(endScore));
+	}
+
 	IEnumerator SetEndScoreTextCoroutine(double endScore)
 	{
 		double startScore = 0;
@@ -97,6 +110,26 @@ public class GameUIManager : MonoBehaviour
 				startScore += endScore / 30;
 				if (startScore >= endScore) startScore = endScore;
 				endScoreText.text = string.Format("{0:#,##0}", startScore);
+				yield return new WaitForSeconds(0.03f);
+			}
+		}
+	}
+
+	IEnumerator SetClearScoreTextCoroutine(double endScore)
+	{
+		double startScore = 0;
+
+		if (endScore >= -1000 && endScore <= 1000)
+		{
+			gameClearEndScoreText.text = string.Format("{0:#,##0}", endScore);
+		}
+		else
+		{
+			while (startScore != endScore)
+			{
+				startScore += endScore / 30;
+				if (startScore >= endScore) startScore = endScore;
+				gameClearEndScoreText.text = string.Format("{0:#,##0}", startScore);
 				yield return new WaitForSeconds(0.03f);
 			}
 		}
