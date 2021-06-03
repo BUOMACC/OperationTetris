@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
 	// 처음 실행시 다음 블록 3개를 스폰
 	public void InitNextBlock()
 	{
-		if (mode == GameSetting.Mode.Normal)
+		if (mode != GameSetting.Mode.Puzzle)
 		{
 			for (int i = 1; i < 4; i++) // 3개의 블록 미리 생성 (다음으로 보여줄 블록 3개)
 			{
