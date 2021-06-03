@@ -9,10 +9,12 @@ public class PlayUIManager : MonoBehaviour
 	public float waitTime = 3.0f;
 
 	MainUIManager um;
+	OptionUIManager om;
 
 	void Awake()
 	{
 		um = FindObjectOfType<MainUIManager>();
+		om = FindObjectOfType<OptionUIManager>();
 	}
 
 	public void PlayBtn()
@@ -39,7 +41,8 @@ public class PlayUIManager : MonoBehaviour
 	public void OptionBtn()
     {
 		um.ShowOptionUI();
-    }
+		om.LoadOptionValues();
+	}
 
 	public void QuitBtn()
 	{

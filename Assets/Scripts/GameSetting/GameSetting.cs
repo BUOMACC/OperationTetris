@@ -18,6 +18,14 @@ public class GameSetting : MonoBehaviour
 		frameLimit = PlayerPrefs.GetInt("frameLimit", 60);
 		bgm = PlayerPrefs.GetInt("bgm", 100);
 		sfx = PlayerPrefs.GetInt("sfx", 100);
+		LoadOptionValues();
+	}
+
+	public void LoadOptionValues()
+    {
+		Application.targetFrameRate = frameLimit;
+		AudioManager.instance.setBGMVolume(bgm);
+		AudioManager.instance.setSFXVolume(sfx);
 	}
 
 	public void setFrameLimit(int frameLimit)

@@ -20,6 +20,18 @@ public class OptionUIManager : MonoBehaviour
 	public Text bgmText;
 	public Text sfxText;
 
+	public void LoadOptionValues()
+    {
+		frameLimitSlider.value = PlayerPrefs.GetInt("frameLimit", 60);
+		fpsText.text = "" + PlayerPrefs.GetInt("frameLimit", 60);
+
+		bgmSlider.value = PlayerPrefs.GetInt("bgm", 100);
+		bgmText.text = "" + PlayerPrefs.GetInt("bgm", 100);
+
+		sfxSlider.value = PlayerPrefs.GetInt("sfx", 100);
+		sfxText.text = "" + PlayerPrefs.GetInt("sfx", 100);
+	}
+
 	public void ChangeValue_LimitFPS()
 	{
 		GameSetting.instance.setFrameLimit((int)frameLimitSlider.value);
