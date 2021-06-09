@@ -41,6 +41,17 @@ public class GameUIManager : MonoBehaviour
 	public GameObject targetScore;
 	public Text targetScoreText;
 
+	// Control UI
+	[Header("Control UI (Mobile)")]
+	public Button block_MoveLeft;
+	public Button block_MoveRight;
+	public Button block_Rotate;
+	public Button block_keep;
+	public GameObject block_MoveDown;
+
+
+
+
 	public void SetPuzzleUI()
     {
 		targetScore.SetActive(true);

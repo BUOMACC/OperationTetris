@@ -12,12 +12,16 @@ public class GameSetting : MonoBehaviour
 	private int frameLimit;
 	private int bgm;
 	private int sfx;
+	private bool bloom = true;
+	private bool camShake = true;
 
 	void Start()
     {
 		frameLimit = PlayerPrefs.GetInt("frameLimit", 60);
 		bgm = PlayerPrefs.GetInt("bgm", 100);
 		sfx = PlayerPrefs.GetInt("sfx", 100);
+		bloom = (PlayerPrefs.GetInt("bloom", 1) == 1) ? true : false;
+		camShake =( PlayerPrefs.GetInt("camShake", 1) == 1) ? true : false;
 		LoadOptionValues();
 	}
 
@@ -26,6 +30,8 @@ public class GameSetting : MonoBehaviour
 		Application.targetFrameRate = frameLimit;
 		AudioManager.instance.setBGMVolume(bgm);
 		AudioManager.instance.setSFXVolume(sfx);
+		Camera.main.GetComponent<FastMobileBloom>().enabled = bloom;
+		// TODO: camera shake setting load
 	}
 
 	public void setFrameLimit(int frameLimit)

@@ -30,6 +30,8 @@ public class OptionUIManager : MonoBehaviour
 
 		sfxSlider.value = PlayerPrefs.GetInt("sfx", 100);
 		sfxText.text = "" + PlayerPrefs.GetInt("sfx", 100);
+
+		bloomToggle.isOn = (PlayerPrefs.GetInt("bloom", 1) == 1) ? true : false;
 	}
 
 	public void ChangeValue_LimitFPS()
@@ -61,16 +63,18 @@ public class OptionUIManager : MonoBehaviour
 		if (bloomToggle.isOn == true)
 		{
 			Camera.main.GetComponent<FastMobileBloom>().enabled = true;
+			PlayerPrefs.SetInt("bloom", (bloomToggle.isOn) ? 1 : 0);
 		}
         else
         {
 			Camera.main.GetComponent<FastMobileBloom>().enabled = false;
+			PlayerPrefs.SetInt("bloom", (bloomToggle.isOn) ? 1 : 0);
 		}
 	}
 
 	public void ChangeValue_CameraShake()
 	{
-		// 미완, if (cameraShakeToggle.isOn == true) ~~~~
+		// TODO: 미완, if (cameraShakeToggle.isOn == true) ~~~~
 	}
 
 	public void CloseBtn()

@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 
 		NewTetrisBlock();
 
-		//GameSetting.instance.LoadOptionValues();
+		GameSetting.instance.LoadOptionValues();
 
 		AudioManager.instance.PlayBGM("GameBGM");
 	}

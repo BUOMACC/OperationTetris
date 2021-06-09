@@ -11,56 +11,66 @@ public class TetrisBlock : MonoBehaviour
 
 	public Vector3 rotationPoint;
 	private float previousTime;
+	private bool fastDown = false;
 
 	GameManager gm; // GameManager 게임의 흐름을 관리
 	GameUIManager um;
+	LongClickChecker lc;
 
 	void Awake()
 	{
 		gm = FindObjectOfType<GameManager>(); // Get GameManager
 		um = FindObjectOfType<GameUIManager>();
+		lc = um.block_MoveDown.GetComponent<LongClickChecker>();
 
 		SetRandomBlockValue(); // 블록 생성시 블록마다 값을 줌
 		this.enabled = false; // 맵으로 이동될 때까지 스크립트를 비활성화함
 	}
 
+	void Start()
+	{
+		um.block_MoveLeft.onClick.AddListener(MoveLeft);
+		um.block_MoveRight.onClick.AddListener(MoveRight);
+		um.block_Rotate.onClick.AddListener(MoveRotate);
+		um.block_keep.onClick.AddListener(gm.SaveBlock);
+	}
+
 	void Update()
     {
 		// Left / Right Move
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
 		{
-			transform.position += new Vector3(-1, 0, 0);
-			if(!ValidMove())
-				transform.position -= new Vector3(-1, 0, 0);
+			MoveLeft();
 		}
 		else if(Input.GetKeyDown(KeyCode.RightArrow))
 		{
-			transform.position += new Vector3(1, 0, 0);
-			if (!ValidMove())
-				transform.position -= new Vector3(1, 0, 0);
+			MoveRight();
 		}
 		else if(Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			// Block Rotate
-			RotateBlock(90);
-			if (!ValidMove())
-			{
-				RotateBlock(-90);
-			}
+			MoveRotate();
 		}
 		else if (Input.GetKeyDown(KeyCode.Space)) // Block Save
 		{
 			gm.SaveBlock();
 		}
 
+
+		fastDown = (Input.GetKey(KeyCode.DownArrow) || lc.clicked);
+
 		// Down / Fast Down
-		if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? gm.currentFallTime / 10 : gm.currentFallTime))
+		if (Time.time - previousTime > ((fastDown) ? gm.currentFallTime / 10 : gm.currentFallTime))
 		{
 			transform.position += new Vector3(0, -1, 0);
 			if (!ValidMove())
 			{
 				transform.position -= new Vector3(0, -1, 0);
 				AddToGrid();
+				um.block_MoveLeft.onClick.RemoveListener(MoveLeft);
+				um.block_MoveRight.onClick.RemoveListener(MoveRight);
+				um.block_Rotate.onClick.RemoveListener(MoveRotate);
+				um.block_keep.onClick.RemoveListener(gm.SaveBlock);
 				StartCoroutine(gm.CheckForLines());
 
 				this.enabled = false;
@@ -71,6 +81,32 @@ public class TetrisBlock : MonoBehaviour
 			previousTime = Time.time;
 		}
     }
+
+	// * Control *
+	public void MoveLeft()
+	{
+		transform.position += new Vector3(-1, 0, 0);
+		if (!ValidMove())
+			transform.position -= new Vector3(-1, 0, 0);
+	}
+
+	public void MoveRight()
+	{
+		transform.position += new Vector3(1, 0, 0);
+		if (!ValidMove())
+			transform.position -= new Vector3(1, 0, 0);
+	}
+
+	public void MoveRotate()
+	{
+		RotateBlock(90);
+		if (!ValidMove())
+		{
+			RotateBlock(-90);
+		}
+	}
+
+
 
 	public void SetPreviousTime(float n) // 블록 생성시 바로 떨어지는 문제를 해결하기 위함
     {
