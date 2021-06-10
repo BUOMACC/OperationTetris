@@ -34,6 +34,7 @@ public class GameUIManager : MonoBehaviour
 
 	// TimeAttack Mode
 	[Header("TimeAttack Mode")]
+	public GameObject limitTimeUI;
 	public Text limitTimeText;
 
 	// Puzzle Mode
@@ -59,7 +60,7 @@ public class GameUIManager : MonoBehaviour
 
 	public void SetLimitTimeText(double limitTime)
 	{
-		limitTimeText.text = "남은시간 : " + limitTime + "초";
+		limitTimeText.text = limitTime + "초";
 	}
 
 	public void SetTargetScore(double targetScore)
@@ -90,19 +91,21 @@ public class GameUIManager : MonoBehaviour
 		gravGageImg.fillAmount = gage;
 	}
 
-	public void ShowGameOverUI(bool show, double endScore)
+	public void ShowGameOverUI(bool show, double endScore, int lineClear)
 	{
 		gameOverUI.SetActive(show);
 		if(!GameSetting.instance.isOnline)
 		{
 			infoText.SetActive(true);
 		}
+		endLineClearText.text = lineClear.ToString();
 		StartCoroutine(SetEndScoreTextCoroutine(endScore));
 	}
 
-	public void ShowGameClearUI(bool show, double endScore)
+	public void ShowGameClearUI(bool show, double endScore, int lineClear)
     {
 		gameClearUI.SetActive(show);
+		gameClearEndLineClearText.text = lineClear.ToString();
 		StartCoroutine(SetClearScoreTextCoroutine(endScore));
 	}
 

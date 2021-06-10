@@ -8,7 +8,9 @@ using System.Data;
 public class GameManager : MonoBehaviour
 {
 	public long score = 0;
+	public int lineClear = 0;
 	public float gage = 0.0f;
+	public float playTime = 0;
 
 	public GameObject[] blocks;
 
@@ -21,8 +23,8 @@ public class GameManager : MonoBehaviour
 	public static Transform[,] grid;
 
 	[Header("GameSetting")]
-	[HideInInspector] public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
-	[HideInInspector] public GameSetting.Mode mode = GameSetting.Mode.Normal;
+	public GameSetting.Difficulty difficulty = GameSetting.Difficulty.Easy; // 난이도
+	public GameSetting.Mode mode = GameSetting.Mode.Normal;
 	public float currentFallTime = 0.8f;
 	public float fallTime = 0.8f;
 	public float addGravityGage = 0.025f;
@@ -89,7 +91,8 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if(gameOver == false)
+		playTime += Time.deltaTime;
+		if (gameOver == false)
         {
 			if (Input.GetKeyDown(KeyCode.E))
 			{
@@ -134,6 +137,7 @@ public class GameManager : MonoBehaviour
 	{
 		difficulty = GameSetting.instance.difficulty; // 난이도 설정
 		mode = GameSetting.instance.mode; // 모드 설정
+		level = GameSetting.instance.puzzleLevel;
 		theAudioManager = AudioManager.instance;
 	}
 
@@ -194,10 +198,16 @@ public class GameManager : MonoBehaviour
 		if (mode == GameSetting.Mode.Puzzle)
 		{
 			Stage stage = puzzleMode.stages[level - 1];
-			// 모든 블록을 다 사용했지만 점수가 일치하지 않다면 게임오버
+			// 모든 블록을 다 사용해 점수를 맞췄으면 게임 클리어
 			if (score == stage.targetScore)
 			{
 				GameClear();
+
+				// 스테이지 클리어시 다음 스테이지를 열어줌
+				if(GameSetting.instance.puzzle_Stage == level)
+				{
+					GameSetting.instance.puzzle_Stage += 1;
+				}
 				return true;
 			}
 		}
@@ -206,16 +216,18 @@ public class GameManager : MonoBehaviour
 
 	public void GameClear()
 	{
-		um.ShowGameClearUI(true, score);
-		Debug.Log("Clear");
+		um.ShowGameClearUI(true, score, lineClear);
 	}
 
 	public void GameOver()
-    {
+	{
 		gameOver = true;
-		um.ShowGameOverUI(true, score);
-		Debug.Log("Game Over");
-    }
+		um.ShowGameOverUI(true, score, lineClear);
+
+		SaveRankingScore();
+		GameSetting.instance.AddExp((int)playTime / 30);
+	}
+
 
 	// 테트리스 블록 스폰
 	public void NewTetrisBlock()
@@ -338,6 +350,7 @@ public class GameManager : MonoBehaviour
 		{
 			if (HasLine(y))
 			{
+				lineClear++; // 줄완성 횟수
 				if (ValidExpression(y) == "NoError") // 식 완성 체크
 				{
 					long score = CalcExpression(y);
@@ -410,6 +423,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (mode == GameSetting.Mode.TimeAttack)
 		{
+			um.limitTimeUI.SetActive(true);
 			currentLimitTime = limitTime;
 		}
 	}
@@ -419,6 +433,9 @@ public class GameManager : MonoBehaviour
 	{
 		if (mode == GameSetting.Mode.Puzzle)
 		{
+			currentFallTime = GameSetting.instance.puzzleFallTime;
+			fallTime = GameSetting.instance.puzzleFallTime;
+
 			// 설정한 값들 그리드에 배치
 			Stage stage = puzzleMode.stages[level-1];
 			Map map = stage.map;
@@ -583,8 +600,40 @@ public class GameManager : MonoBehaviour
 		long res = System.Convert.ToInt64(v);
 
 		// TODO: 이후에 지울것
-		Debug.Log(expression + "계산결과: " + res);
+		//Debug.Log(expression + "계산결과: " + res);
 
 		return res;
+	}
+
+
+	// 랭킹 스코어 갱신
+	void SaveRankingScore()
+	{
+		if (GameSetting.instance.mode == GameSetting.Mode.Normal)
+		{
+			if (GameSetting.instance.difficulty == GameSetting.Difficulty.Easy)
+			{
+				if (GameSetting.instance.normal_Easy < score)
+					GameSetting.instance.normal_Easy = score;
+			}
+			else if (GameSetting.instance.difficulty == GameSetting.Difficulty.Hard)
+			{
+				if (GameSetting.instance.normal_Hard < score)
+					GameSetting.instance.normal_Hard = score;
+			}
+		}
+		else if (GameSetting.instance.mode == GameSetting.Mode.TimeAttack)
+		{
+			if (GameSetting.instance.difficulty == GameSetting.Difficulty.Easy)
+			{
+				if (GameSetting.instance.timeAttack_Easy < score)
+					GameSetting.instance.timeAttack_Easy = score;
+			}
+			else if (GameSetting.instance.difficulty == GameSetting.Difficulty.Hard)
+			{
+				if (GameSetting.instance.timeAttack_Hard < score)
+					GameSetting.instance.timeAttack_Hard = score;
+			}
+		}
 	}
 }

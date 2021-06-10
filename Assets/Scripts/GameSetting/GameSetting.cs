@@ -9,46 +9,13 @@ public class GameSetting : MonoBehaviour
 	private OptionUIManager om;
 	private AudioManager am;
 
+	[Header("Game Data")]
+
 	private int frameLimit;
 	private int bgm;
 	private int sfx;
 	private bool bloom = true;
 	private bool camShake = true;
-
-	void Start()
-    {
-		frameLimit = PlayerPrefs.GetInt("frameLimit", 60);
-		bgm = PlayerPrefs.GetInt("bgm", 100);
-		sfx = PlayerPrefs.GetInt("sfx", 100);
-		bloom = (PlayerPrefs.GetInt("bloom", 1) == 1) ? true : false;
-		camShake =( PlayerPrefs.GetInt("camShake", 1) == 1) ? true : false;
-		LoadOptionValues();
-	}
-
-	public void LoadOptionValues()
-    {
-		Application.targetFrameRate = frameLimit;
-		AudioManager.instance.setBGMVolume(bgm);
-		AudioManager.instance.setSFXVolume(sfx);
-		Camera.main.GetComponent<FastMobileBloom>().enabled = bloom;
-		// TODO: camera shake setting load
-	}
-
-	public void setFrameLimit(int frameLimit)
-	{
-		this.frameLimit = frameLimit;
-	}
-
-	public void setBGM(int bgm)
-    {
-		this.bgm = bgm;
-    }
-
-	public void setSFX(int sfx)
-    {
-		this.sfx = sfx;
-    }
-
 
 	// Difficulty
 	public enum Difficulty
@@ -66,14 +33,24 @@ public class GameSetting : MonoBehaviour
 		Puzzle // 퍼즐
 	}
 	public Mode mode = Mode.Normal;
+	public int puzzleLevel = 1;
+	public float puzzleFallTime = 999999.0f;
 
 	// Login Data
+	[Header("User Data")]
+	public bool session = false; // 세션 유지
 	public bool isOnline = false;
-	// 로그인시 uID와 aID가 매치되어야함 (uID = 고유 아이디, 번호
-	//									aID = 계정 아이디)
 	public int uID = 0;
-	public string aID = "";
-	public string uName = "";
+	public string nickName = "";
+	public int block = 0;
+	public int level = 1;
+	public int exp = 0;
+	public int exp_Max = 100;
+	public int puzzle_Stage = 1;
+	public long normal_Easy = 0;
+	public long normal_Hard = 0;
+	public long timeAttack_Easy = 0;
+	public long timeAttack_Hard = 0;
 
 
 	void Awake()
@@ -90,5 +67,49 @@ public class GameSetting : MonoBehaviour
 		}
 
 		#endregion // 세팅은 하나만 존재하도록 싱글톤 사용
+	}
+
+	void Start()
+	{
+		frameLimit = PlayerPrefs.GetInt("frameLimit", 60);
+		bgm = PlayerPrefs.GetInt("bgm", 100);
+		sfx = PlayerPrefs.GetInt("sfx", 100);
+		bloom = (PlayerPrefs.GetInt("bloom", 1) == 1) ? true : false;
+		camShake = (PlayerPrefs.GetInt("camShake", 1) == 1) ? true : false;
+		LoadOptionValues();
+	}
+
+	public void LoadOptionValues()
+	{
+		Application.targetFrameRate = frameLimit;
+		AudioManager.instance.setBGMVolume(bgm);
+		AudioManager.instance.setSFXVolume(sfx);
+		Camera.main.GetComponent<FastMobileBloom>().enabled = bloom;
+		// TODO: camera shake setting load
+	}
+
+	public void setFrameLimit(int frameLimit)
+	{
+		this.frameLimit = frameLimit;
+	}
+
+	public void setBGM(int bgm)
+	{
+		this.bgm = bgm;
+	}
+
+	public void setSFX(int sfx)
+	{
+		this.sfx = sfx;
+	}
+
+	public void AddExp(int amount)
+	{
+		exp += amount;
+		if(exp >= exp_Max)
+		{
+			exp = exp - exp_Max;
+			level += 1;
+		}
 	}
 }

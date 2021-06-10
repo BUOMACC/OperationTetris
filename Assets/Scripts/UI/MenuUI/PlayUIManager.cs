@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayUIManager : MonoBehaviour
 {
-	public string gameSceneName;
-	public float waitTime = 3.0f;
+	public Text text_Name;
+	public Text text_Exp;
+	public Image img_ExpBar;
 
 	MainUIManager um;
 	OptionUIManager om;
@@ -17,25 +19,16 @@ public class PlayUIManager : MonoBehaviour
 		om = FindObjectOfType<OptionUIManager>();
 	}
 
-	public void PlayBtn()
+	void Update()
 	{
-		um.ShowWaitUI();
-		StartCoroutine(LoadAsyncGameSceneCoroutine()); // 비동기 게임씬 로딩
+		text_Name.text = GameSetting.instance.nickName;
+		text_Exp.text = GameSetting.instance.exp + " / " + GameSetting.instance.exp_Max + " (Lv." + GameSetting.instance.level + ")";
+		img_ExpBar.fillAmount = (float)GameSetting.instance.exp / GameSetting.instance.exp_Max;
 	}
 
-	IEnumerator LoadAsyncGameSceneCoroutine()
+	public void PlayBtn()
 	{
-		AsyncOperation operation = SceneManager.LoadSceneAsync(gameSceneName);
-		operation.allowSceneActivation = false;
-
-		yield return new WaitForSeconds(waitTime);
-
-		while(!operation.isDone)
-		{
-			yield return null;
-			if(operation.progress >= 0.9f)
-				operation.allowSceneActivation = true;
-		}
+		um.selectMapUI.SetActive(true);
 	}
 
 	public void OptionBtn()
