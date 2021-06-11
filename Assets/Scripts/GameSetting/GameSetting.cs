@@ -15,7 +15,7 @@ public class GameSetting : MonoBehaviour
 	private int bgm;
 	private int sfx;
 	private bool bloom = true;
-	private bool camShake = true;
+	public bool camShake = true;
 
 	// Difficulty
 	public enum Difficulty
@@ -111,5 +111,11 @@ public class GameSetting : MonoBehaviour
 			exp = exp - exp_Max;
 			level += 1;
 		}
+	}
+
+	public void AddMoney(int amount)
+	{
+		int rnum = Random.Range(1, amount);
+		block += rnum;
 	}
 }

@@ -10,6 +10,7 @@ public class MainUIManager : MonoBehaviour
 	public GameObject playUI;
 	public GameObject optionUI;
 	public GameObject selectMapUI;
+	public GameObject shopUI;
 
 	public string gameSceneName = "Game";
 	public float waitTime = 3.0f;
@@ -74,6 +75,13 @@ public class MainUIManager : MonoBehaviour
 
 	public void ShowSelectMapUI()
 	{
+		shopUI.SetActive(false);
 		selectMapUI.SetActive(true);
+	}
+
+	public void ShowShopUI()
+	{
+		selectMapUI.SetActive(false);
+		shopUI.SetActive(true);
 	}
 }

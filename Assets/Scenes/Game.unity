@@ -1796,6 +1796,10 @@ MonoBehaviour:
   exp: 0
   exp_Max: 100
   puzzle_Stage: 1
+  normal_Easy: 0
+  normal_Hard: 0
+  timeAttack_Easy: 0
+  timeAttack_Hard: 0
 --- !u!4 &481209196
 Transform:
   m_ObjectHideFlags: 0
@@ -2352,6 +2356,7 @@ MonoBehaviour:
   score: 0
   lineClear: 0
   gage: 0
+  playTime: 0
   blocks:
   - {fileID: 4815934170804119913, guid: abdf241db4b63bd4583bf4d99416d50c, type: 3}
   - {fileID: 6714785769665110269, guid: a697c5e3d0524454d97a77699a090edb, type: 3}
@@ -3105,6 +3110,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3194,6 +3200,25 @@ MonoBehaviour:
   blurSize: 0.7
   blurIterations: 2
   fastBloomMaterial: {fileID: 2100000, guid: 221340b8b5ad10940ba1646f87e3770c, type: 2}
+--- !u!95 &963194230
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3862e819f91780d4e8039b33b4efcd60, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &970616651
 PrefabInstance:
   m_ObjectHideFlags: 0

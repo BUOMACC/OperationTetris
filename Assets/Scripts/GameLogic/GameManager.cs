@@ -226,6 +226,7 @@ public class GameManager : MonoBehaviour
 
 		SaveRankingScore();
 		GameSetting.instance.AddExp((int)playTime / 30);
+		GameSetting.instance.AddMoney((int)playTime / 10);
 	}
 
 
@@ -372,7 +373,9 @@ public class GameManager : MonoBehaviour
 						RowDown(y);
 					}
 					theAudioManager.PlaySFX("LineClearFail");
-				}				
+				}
+				if(GameSetting.instance.camShake)
+					Camera.main.GetComponent<Animator>().SetTrigger("CameraShake");
 			}
 		}
 		currentFallTime = fallTime;
