@@ -75,7 +75,16 @@ public class OptionUIManager : MonoBehaviour
 
 	public void ChangeValue_CameraShake()
 	{
-		// TODO: 미완, if (cameraShakeToggle.isOn == true) ~~~~
+		if (cameraShakeToggle.isOn == true)
+        {
+			GameSetting.instance.camShake = true;
+			PlayerPrefs.SetInt("camShake", (cameraShakeToggle.isOn) ? 1 : 0);
+		}
+		else
+        {
+			GameSetting.instance.camShake = false;
+			PlayerPrefs.SetInt("camShake", (cameraShakeToggle.isOn) ? 1 : 0);
+		}
 	}
 
 	public void CloseBtn()
