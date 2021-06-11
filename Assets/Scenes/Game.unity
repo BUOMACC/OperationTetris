@@ -1783,6 +1783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a6ed20fe6f2aa40aff99ac3c73632b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camShake: 1
   difficulty: 0
   mode: 0
   puzzleLevel: 1
@@ -4457,7 +4458,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 601, y: -400}
+  m_AnchoredPosition: {x: 601, y: -270}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1336646652
