@@ -242,6 +242,7 @@ public class GameManager : MonoBehaviour
 	public void NewDefaultTetrisBlock()
 	{
 		if (CheckGameOver()) return;
+		FallTimeChange();
 		for (int i = 0; i < 3; i++) // 1, 2, 3번을 앞으로 하나씩 땡겨옴
 		{
 			blockList[i] = blockList[i + 1];
@@ -639,4 +640,45 @@ public class GameManager : MonoBehaviour
 			}
 		}
 	}
+
+	// 블록이 떨어지는 시간 조절
+	void FallTimeChange()
+    {
+		if(GameSetting.instance.mode == GameSetting.Mode.Normal)
+        {
+			if (playTime < 60)
+			{
+				fallTime = 0.8f;
+			}
+			else if (playTime < 120)
+			{
+				fallTime = 0.7f;
+			}
+			else if (playTime < 180)
+            {
+				fallTime = 0.6f;
+			}
+			else if (playTime < 240)
+			{
+				fallTime = 0.5f;
+			}
+			else if (playTime < 300)
+			{
+				fallTime = 0.4f;
+			}
+			else if (playTime < 360)
+			{
+				fallTime = 0.3f;
+			}
+			else if (playTime < 420)
+			{
+				fallTime = 0.2f;
+			}
+			else if (playTime >= 420)
+			{
+				fallTime = 0.1f;
+			}
+		}
+		
+    }
 }
