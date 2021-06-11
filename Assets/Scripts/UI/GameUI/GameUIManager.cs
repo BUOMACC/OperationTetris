@@ -83,7 +83,7 @@ public class GameUIManager : MonoBehaviour
 
 	IEnumerator SetGravityGageCoroutine(float gage)
 	{
-		while(Mathf.Abs(gage - gravGageImg.fillAmount) > 0.01f)
+		while(Mathf.Abs(gage - gravGageImg.fillAmount) > 0.1f)
 		{
 			gravGageImg.fillAmount = Mathf.Lerp(gravGageImg.fillAmount, gage, gravGageSpd * Time.deltaTime);
 			yield return null;

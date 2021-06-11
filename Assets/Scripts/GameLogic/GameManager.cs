@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 		GameSetting.instance.LoadOptionValues();
 
 		AudioManager.instance.PlayBGM("GameBGM");
+
 	}
 
 	void Update()

@@ -61,7 +61,7 @@ public class BlockData : MonoBehaviour
 			targetY -= 1;
 		}
 		GameManager.grid[targetX, targetY] = transform;
-		
+
 		// 블록 움직임 애니메이션 실행
 		StartCoroutine(BlockMoveAnimationCoroutine(targetY, gravityScale));
 	}
@@ -79,9 +79,11 @@ public class BlockData : MonoBehaviour
 		{
 			gravScale += gravityScale * Time.deltaTime;
 			float yPos = (transform.position.y - gravScale) < 0 ? 0 : transform.position.y - gravScale;
+			if(yPos - targetY <= 0)
+				break;
 
 			transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
-			yield return null;
+			yield return new WaitForSeconds(0.007f);
 		}
 		transform.position = targetPos;
 	}
