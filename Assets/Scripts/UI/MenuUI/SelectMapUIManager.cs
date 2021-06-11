@@ -93,7 +93,6 @@ public class SelectMapUIManager : MonoBehaviour
 				am.GetRanking("TIMEATTACK_EASY", element_Easy);
 				am.GetRanking("TIMEATTACK_HARD", element_Hard);
 			}
-		}
 	}
 
 	public void CloseBtn()
