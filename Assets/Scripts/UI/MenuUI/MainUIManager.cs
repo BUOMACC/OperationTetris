@@ -25,7 +25,8 @@ public class MainUIManager : MonoBehaviour
 	void Start()
 	{
 		AudioManager.instance.PlayBGM("MainBGM");
-		if(GameSetting.instance.session) // 세션 유지중이라면 로그인 스킵
+		GameSetting.instance.LoadOptionValues();
+		if (GameSetting.instance.session) // 세션 유지중이라면 로그인 스킵
 		{
 			ShowPlayUI();
 			if(GameSetting.instance.isOnline) // 온라인 모드라면 데이터 저장
