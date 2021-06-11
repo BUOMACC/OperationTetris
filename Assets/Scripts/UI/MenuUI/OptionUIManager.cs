@@ -32,6 +32,7 @@ public class OptionUIManager : MonoBehaviour
 		sfxText.text = "" + PlayerPrefs.GetInt("sfx", 100);
 
 		bloomToggle.isOn = (PlayerPrefs.GetInt("bloom", 1) == 1) ? true : false;
+		cameraShakeToggle.isOn = (PlayerPrefs.GetInt("camShake", 1) == 1) ? true : false;
 	}
 
 	public void ChangeValue_LimitFPS()
