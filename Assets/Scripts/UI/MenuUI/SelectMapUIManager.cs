@@ -59,8 +59,6 @@ public class SelectMapUIManager : MonoBehaviour
 	public void Select_Ranking(string mode)
 	{
 		// 인터넷에 연결된 경우만 랭킹 조회가능
-		if(Application.internetReachability != NetworkReachability.NotReachable)
-		{
 			tab_TimeAttack.SetActive(false);
 			tab_Normal.SetActive(false);
 			tab_Puzzle.SetActive(false);
@@ -95,10 +93,6 @@ public class SelectMapUIManager : MonoBehaviour
 				am.GetRanking("TIMEATTACK_EASY", element_Easy);
 				am.GetRanking("TIMEATTACK_HARD", element_Hard);
 			}
-		}
-		else
-		{
-			messageBox.ShowMessageBox("Error", "인터넷에 연결되어 있지 않습니다.");
 		}
 	}
 
