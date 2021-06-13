@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 	public GameSetting.Mode mode = GameSetting.Mode.Normal;
 	public float currentFallTime = 0.8f;
 	public float fallTime = 0.8f;
-	public float addGravityGage = 0.025f;
+	public float addGravityGage = 0.05f;
 	public float gravityScale = 0.08f;
 	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
 
@@ -647,35 +647,35 @@ public class GameManager : MonoBehaviour
     {
 		if(GameSetting.instance.mode == GameSetting.Mode.Normal)
         {
-			if (playTime < 60)
+			if (playTime < 90)
 			{
 				fallTime = 0.8f;
 			}
-			else if (playTime < 120)
+			else if (playTime < 180)
 			{
 				fallTime = 0.7f;
 			}
-			else if (playTime < 180)
+			else if (playTime < 270)
             {
 				fallTime = 0.6f;
 			}
-			else if (playTime < 240)
+			else if (playTime < 360)
 			{
 				fallTime = 0.5f;
 			}
-			else if (playTime < 300)
+			else if (playTime < 450)
 			{
 				fallTime = 0.4f;
 			}
-			else if (playTime < 360)
+			else if (playTime < 540)
 			{
 				fallTime = 0.3f;
 			}
-			else if (playTime < 420)
+			else if (playTime < 630)
 			{
 				fallTime = 0.2f;
 			}
-			else if (playTime >= 420)
+			else if (playTime >= 630)
 			{
 				fallTime = 0.1f;
 			}
