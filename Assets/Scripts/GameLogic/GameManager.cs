@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 	public GameSetting.Mode mode = GameSetting.Mode.Normal;
 	public float currentFallTime = 0.8f;
 	public float fallTime = 0.8f;
-	public float addGravityGage = 0.05f;
+	public float addGravityGage = 0.1f;
 	public float gravityScale = 0.08f;
 	public float destroyTime = 0.2f; // 블록 파괴시간 (1 = 1초)
 
