@@ -66,6 +66,7 @@ public class ShopUIManager : MonoBehaviour
 		if (cn_Rename.text.Contains(".") || cn_Rename.text.Contains(",") || cn_Rename.text == "")
 		{
 			messageBox.ShowMessageBox("알림", "사용할 수 없는 기호가 포함되어 있습니다!");
+			return;
 		}
 
 		// 구매 로직
