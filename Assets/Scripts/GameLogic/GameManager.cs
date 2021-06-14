@@ -99,9 +99,6 @@ public class GameManager : MonoBehaviour
 			{
 				if (gage >= 1.0f)
 				{
-					gage = 0.0f;
-					um.SetGravityGage(0.0f);
-					um.gravIcon.SetActive(false);
 					UseGravitySkill();
 				}
 			}
@@ -116,6 +113,9 @@ public class GameManager : MonoBehaviour
 	// 중력스킬 사용
 	public void UseGravitySkill()
 	{
+		gage = 0.0f;
+		um.SetGravityGage(0.0f);
+		um.gravIcon.SetActive(false);
 		StartCoroutine(BlockGravityCoroutine());
 	}
 
