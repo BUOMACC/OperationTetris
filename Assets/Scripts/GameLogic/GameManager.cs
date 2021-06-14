@@ -365,6 +365,9 @@ public class GameManager : MonoBehaviour
 					AddScore(score);
 					AddGravityGage(addGravityGage);
 					lineClear++;
+					// 카메라 효과
+					if (GameSetting.instance.camShake)
+						Camera.main.GetComponent<Animator>().SetTrigger("CameraShake");
 
 					DeleteLine(y);
 					yield return new WaitForSeconds(destroyTime);
@@ -377,6 +380,9 @@ public class GameManager : MonoBehaviour
 					if (difficulty == GameSetting.Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
 					{
 						lineClear++; // 줄완성 카운트
+						// 카메라 효과
+						if (GameSetting.instance.camShake)
+							Camera.main.GetComponent<Animator>().SetTrigger("CameraShake");
 
 						DeleteLine(y);
 						yield return new WaitForSeconds(destroyTime);
@@ -384,8 +390,6 @@ public class GameManager : MonoBehaviour
 					}
 					theAudioManager.PlaySFX("LineClearFail");
 				}
-				if(GameSetting.instance.camShake)
-					Camera.main.GetComponent<Animator>().SetTrigger("CameraShake");
 			}
 		}
 		currentFallTime = fallTime;
