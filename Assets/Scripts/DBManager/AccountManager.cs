@@ -267,6 +267,7 @@ public class AccountManager : MonoBehaviour
 			if(resultData.Equals("Success"))
 			{
 				messageBox.ShowMessageBox("알림", "닉네임을 성공적으로 변경했습니다.");
+				GameSetting.instance.nickName = NEWNAME;
 			}
 			else
 			{
