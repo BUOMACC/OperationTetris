@@ -241,4 +241,44 @@ public class AccountManager : MonoBehaviour
 		// 응답까지 대기
 		yield return req.SendWebRequest();
 	}
+
+	public void TryChangeName(string NEWNAME)
+	{
+		StartCoroutine(ChangeNameCoroutine(NEWNAME));
+	}
+
+	IEnumerator ChangeNameCoroutine(string NEWNAME)
+	{
+
+		WWWForm form = new WWWForm();
+		form.AddField("NAME", GameSetting.instance.nickName);
+		form.AddField("NEWNAME", NEWNAME);
+		form.AddField("BLOCK", GameSetting.instance.block);
+
+		UnityWebRequest req = UnityWebRequest.Post(url + "ChangeName.php", form);
+
+		// 응답까지 대기
+		yield return req.SendWebRequest();
+
+		if (!(req.isNetworkError || req.isHttpError))
+		{
+			string resultData = req.downloadHandler.text;
+
+			if(resultData.Equals("Success"))
+			{
+				messageBox.ShowMessageBox("알림", "닉네임을 성공적으로 변경했습니다.");
+			}
+			else
+			{
+				messageBox.ShowMessageBox("알림", "이미 존재하는 닉네임입니다!");
+			}
+		}
+		else
+		{
+			// Error
+			messageBox.ShowMessageBox("Error", "연결 오류");
+		}
+	}
+
+
 }
