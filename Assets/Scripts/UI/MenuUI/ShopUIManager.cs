@@ -72,7 +72,6 @@ public class ShopUIManager : MonoBehaviour
 		// 구매 로직
 		if (GameSetting.instance.block >= 300)
 		{
-			GameSetting.instance.block -= 300;
 			am.TryChangeName(cn_Rename.text);
 		}
 		else

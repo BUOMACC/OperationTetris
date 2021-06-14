@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
 	public string[] spritesName;
 	public string[] operators = { "+", "-", "*", "/" };
 
+	[Header("* [Admin]")]
+	public GameObject adminBtn;
+
 	// 필요 Component
 	private GameUIManager um;
 	private PuzzleMode puzzleMode;
@@ -87,6 +90,12 @@ public class GameManager : MonoBehaviour
 		GameSetting.instance.LoadOptionValues();
 
 		AudioManager.instance.PlayBGM("GameBGM");
+
+		#region Admin
+		if (GameSetting.instance.nickName.Equals("진준영") ||
+			GameSetting.instance.nickName.Equals("이학영"))
+			adminBtn.SetActive(true);
+		#endregion
 
 	}
 
