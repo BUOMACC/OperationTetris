@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 					gage = 0.0f;
 					um.SetGravityGage(0.0f);
 					um.gravIcon.SetActive(false);
-					StartCoroutine(BlockGravityCoroutine());
+					UseGravitySkill();
 				}
 			}
 			if (mode == GameSetting.Mode.TimeAttack && currentLimitTime >= 0)
@@ -111,6 +111,12 @@ public class GameManager : MonoBehaviour
 			}
 		}
 		
+	}
+
+	// 중력스킬 사용
+	public void UseGravitySkill()
+	{
+		StartCoroutine(BlockGravityCoroutine());
 	}
 
 	// 블록 중력
@@ -353,12 +359,12 @@ public class GameManager : MonoBehaviour
 		{
 			if (HasLine(y))
 			{
-				lineClear++; // 줄완성 횟수
 				if (ValidExpression(y) == "NoError") // 식 완성 체크
 				{
 					long score = CalcExpression(y);
 					AddScore(score);
 					AddGravityGage(addGravityGage);
+					lineClear++;
 
 					DeleteLine(y);
 					yield return new WaitForSeconds(destroyTime);
@@ -370,6 +376,8 @@ public class GameManager : MonoBehaviour
                 {
 					if (difficulty == GameSetting.Difficulty.Easy) // 하드 모드가 아닌 경우(식이 완성되지 않아도 제거)
 					{
+						lineClear++; // 줄완성 카운트
+
 						DeleteLine(y);
 						yield return new WaitForSeconds(destroyTime);
 						RowDown(y);
