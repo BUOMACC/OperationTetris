@@ -2374,7 +2374,7 @@ MonoBehaviour:
   mode: 2
   currentFallTime: 0.8
   fallTime: 0.8
-  addGravityGage: 0.025
+  addGravityGage: 0.1
   gravityScale: 0.08
   destroyTime: 0.2
   limitTime: 300
